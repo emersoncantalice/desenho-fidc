@@ -1,0 +1,339 @@
+{
+  "name": "AS IS",
+  "width": 1700,
+  "height": 1650,
+  "nodes": [
+    {
+      "id": "heading",
+      "x": 40,
+      "y": 25,
+      "w": 1600,
+      "h": 80,
+      "title": "ANÁLISE DE CRÉDITO",
+      "detail": "AS IS  /  Arquitetura de aplicações  /  22.10.2026",
+      "kind": "heading"
+    },
+    {
+      "id": "stage1",
+      "x": 40,
+      "y": 125,
+      "w": 1620,
+      "h": 320,
+      "title": "01   ELEGIBILIDADE E SIMULAÇÃO",
+      "detail": "Fluxos de acesso à PDEC — comuns aos três cenários",
+      "kind": "group"
+    },
+    {
+      "id": "channels",
+      "x": 70,
+      "y": 200,
+      "w": 270,
+      "h": 94,
+      "title": "Canais / consumidores",
+      "detail": "Integração direta com a PDEC",
+      "kind": "component"
+    },
+    {
+      "id": "legacy",
+      "x": 70,
+      "y": 330,
+      "w": 270,
+      "h": 94,
+      "title": "Consumidores legados",
+      "detail": "Times que utilizam o GCRE",
+      "kind": "component"
+    },
+    {
+      "id": "gcre",
+      "x": 520,
+      "y": 330,
+      "w": 270,
+      "h": 94,
+      "title": "GCRE",
+      "detail": "On-premises | Integração legada",
+      "kind": "component"
+    },
+    {
+      "id": "pdec1",
+      "x": 1170,
+      "y": 200,
+      "w": 430,
+      "h": 110,
+      "title": "PDEC",
+      "detail": "GCP / Kubernetes (K8s)\nElegibilidade e simulação",
+      "kind": "component"
+    },
+    {
+      "id": "stage2",
+      "x": 40,
+      "y": 475,
+      "w": 1620,
+      "h": 225,
+      "title": "02   CAPTURA E ANÁLISE DA PROPOSTA",
+      "detail": "O canal solicita a captura dentro do EJB; o EJB solicita a decisão à PDEC.",
+      "kind": "group"
+    },
+    {
+      "id": "origin",
+      "x": 70,
+      "y": 555,
+      "w": 270,
+      "h": 94,
+      "title": "Canal",
+      "detail": "Solicitante da captura",
+      "kind": "component"
+    },
+    {
+      "id": "proposal",
+      "x": 520,
+      "y": 555,
+      "w": 360,
+      "h": 94,
+      "title": "EJB de crédito",
+      "detail": "Captura e persistência da proposta\nOn-premises | Java / EJB / JBoss",
+      "kind": "component"
+    },
+    {
+      "id": "pdec2",
+      "x": 1170,
+      "y": 555,
+      "w": 430,
+      "h": 94,
+      "title": "PDEC",
+      "detail": "GCP / Kubernetes (K8s)\nPDD, score e rating",
+      "kind": "component"
+    },
+    {
+      "id": "ops",
+      "x": 40,
+      "y": 1070,
+      "w": 1620,
+      "h": 210,
+      "title": "03   PERSISTÊNCIA E OPERAÇÃO",
+      "detail": "PTA mantém o acesso ao Sybase durante a transição.",
+      "kind": "group"
+    },
+    {
+      "id": "db",
+      "x": 520,
+      "y": 1150,
+      "w": 300,
+      "h": 94,
+      "title": "Sybase",
+      "detail": "Proposta, resultados e status",
+      "kind": "database"
+    },
+    {
+      "id": "pta",
+      "x": 970,
+      "y": 1150,
+      "w": 270,
+      "h": 94,
+      "title": "PTA",
+      "detail": "Leitura e registro da decisão",
+      "kind": "component"
+    },
+    {
+      "id": "human",
+      "x": 1390,
+      "y": 1150,
+      "w": 240,
+      "h": 94,
+      "title": "Mesa de crédito",
+      "detail": "Analista interno\nPowerApps: gestão das filas",
+      "kind": "actor"
+    },
+    {
+      "id": "legend",
+      "x": 40,
+      "y": 1600,
+      "w": 1620,
+      "h": 30,
+      "title": "",
+      "detail": "Linha contínua: chamada / dados     ·     Linha pontilhada: fluxo assíncrono     ·     PDEC repetida por etapa: mesmo serviço",
+      "kind": "text"
+    },
+    {
+      "id": "notes",
+      "x": 970,
+      "y": 790,
+      "w": 620,
+      "h": 150,
+      "title": "OPERAÇÃO ATUAL",
+      "detail": "EJB solicita a decisão à PDEC.\nSem decisão automática: derivação à mesa.\nNão inclui o provedor externo.",
+      "kind": "note"
+    },
+    {
+      "id": "downstream",
+      "x": 40,
+      "y": 1310,
+      "w": 1620,
+      "h": 250,
+      "title": "04   STATUS, FORMALIZAÇÃO E PAGAMENTO",
+      "detail": "A fila MQ informa alterações de status; propostas aprovadas seguem para formalização e pagamento.",
+      "kind": "group"
+    },
+    {
+      "id": "statusnotification",
+      "x": 70,
+      "y": 1420,
+      "w": 300,
+      "h": 110,
+      "title": "Notificação de status",
+      "detail": "Status alterado da proposta\nComponente emissor a identificar",
+      "kind": "component"
+    },
+    {
+      "id": "mq",
+      "x": 520,
+      "y": 1420,
+      "w": 300,
+      "h": 110,
+      "title": "Fila MQ",
+      "detail": "Mensagens de alteração\ndo status da proposta",
+      "kind": "component"
+    },
+    {
+      "id": "formalization",
+      "x": 970,
+      "y": 1420,
+      "w": 270,
+      "h": 110,
+      "title": "Formalização",
+      "detail": "Recebe propostas aprovadas\nFluxo atual do legado",
+      "kind": "component"
+    },
+    {
+      "id": "payment",
+      "x": 1390,
+      "y": 1420,
+      "w": 240,
+      "h": 110,
+      "title": "Pagamento",
+      "detail": "Continuidade após\na formalização",
+      "kind": "component"
+    }
+  ],
+  "edges": [
+    {
+      "id": "direct",
+      "source": "channels",
+      "target": "pdec1",
+      "label": "Elegibilidade / simulação",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "old",
+      "source": "legacy",
+      "target": "gcre",
+      "label": "Requisição",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "oldpdec",
+      "source": "gcre",
+      "target": "pdec1",
+      "label": "Via GCRE",
+      "sourceSide": "right",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "entry",
+      "source": "origin",
+      "target": "proposal",
+      "label": "Solicita captura",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "decision",
+      "source": "proposal",
+      "target": "pdec2",
+      "label": "Solicita decisão",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "return",
+      "source": "pdec2",
+      "target": "proposal",
+      "label": "Resultado da chamada",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": 680
+    },
+    {
+      "id": "dbpta",
+      "source": "db",
+      "target": "pta",
+      "label": "Consulta / gravação",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "analysis",
+      "source": "pta",
+      "target": "human",
+      "label": "Análise / decisão",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "persist",
+      "source": "proposal",
+      "target": "db",
+      "label": "Persistência da proposta",
+      "sourceSide": "left",
+      "targetSide": "left",
+      "async_": false,
+      "via": 400
+    },
+    {
+      "id": "notifystatus",
+      "source": "statusnotification",
+      "target": "mq",
+      "label": "Status alterado",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "approvedformalization",
+      "source": "mq",
+      "target": "formalization",
+      "label": "Aprovadas",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "formalizationpayment",
+      "source": "formalization",
+      "target": "payment",
+      "label": "Prossegue",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    }
+  ]
+}

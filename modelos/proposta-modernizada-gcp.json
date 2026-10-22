@@ -1,0 +1,345 @@
+{
+  "name": "Supermodernizado — análise por eventos",
+  "width": 1700,
+  "height": 1850,
+  "nodes": [
+    {
+      "id": "heading",
+      "x": 40,
+      "y": 25,
+      "w": 1600,
+      "h": 80,
+      "title": "ANÁLISE DE CRÉDITO",
+      "detail": "Supermodernizado  /  Proposta externa e análise por eventos  /  22.10.2026",
+      "kind": "heading"
+    },
+    {
+      "id": "stage1",
+      "x": 40,
+      "y": 125,
+      "w": 1620,
+      "h": 320,
+      "title": "01   ELEGIBILIDADE E SIMULAÇÃO",
+      "detail": "Canais acessam diretamente a PDEC no Kubernetes do GCP.",
+      "kind": "group"
+    },
+    {
+      "id": "channels",
+      "x": 70,
+      "y": 200,
+      "w": 270,
+      "h": 94,
+      "title": "Canais / consumidores",
+      "detail": "Integração direta com a PDEC",
+      "kind": "component"
+    },
+    {
+      "id": "pdec1",
+      "x": 1170,
+      "y": 200,
+      "w": 430,
+      "h": 110,
+      "title": "PDEC",
+      "detail": "GCP / Kubernetes (K8s)\nElegibilidade e simulação",
+      "kind": "component"
+    },
+    {
+      "id": "ownership",
+      "x": 40,
+      "y": 475,
+      "w": 1620,
+      "h": 560,
+      "title": "02   CAPTURA SEPARADA → PROPOSTA PERSISTIDA → ANÁLISE",
+      "detail": "O canal solicita a captura; o componente persiste a proposta e só então publica o evento no Kafka.",
+      "kind": "group"
+    },
+    {
+      "id": "externalproposal",
+      "x": 70,
+      "y": 705,
+      "w": 320,
+      "h": 105,
+      "title": "Captura de propostas",
+      "detail": "Componente independente\nCaptura e persistência da proposta",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "proposalstore",
+      "x": 70,
+      "y": 900,
+      "w": 320,
+      "h": 100,
+      "title": "Persistência da proposta",
+      "detail": "Sob responsabilidade da captura\nTecnologia não informada",
+      "kind": "database"
+    },
+    {
+      "id": "kafka",
+      "x": 550,
+      "y": 705,
+      "w": 300,
+      "h": 105,
+      "title": "Confluent Kafka",
+      "detail": "Proposta persistida / resultado\nHospedagem a confirmar",
+      "kind": "component"
+    },
+    {
+      "id": "credit",
+      "x": 1110,
+      "y": 705,
+      "w": 460,
+      "h": 105,
+      "title": "Serviço de análise de crédito",
+      "detail": "GCP | Consome e publica eventos\nOrquestra e registra a análise",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "mysql",
+      "x": 1110,
+      "y": 900,
+      "w": 460,
+      "h": 100,
+      "title": "MySQL cloud",
+      "detail": "Estado, indicadores e resultados da análise\nServiço gerenciado / versão a definir",
+      "kind": "database",
+      "change": "new"
+    },
+    {
+      "id": "processing",
+      "x": 40,
+      "y": 1065,
+      "w": 1620,
+      "h": 470,
+      "title": "03   ANÁLISE AUTOMÁTICA · CHAMADA SÍNCRONA",
+      "detail": "O serviço de análise chama diretamente a PDEC e aguarda o resultado. Não há Kafka nesta chamada.",
+      "kind": "group"
+    },
+    {
+      "id": "creditprocessing",
+      "x": 70,
+      "y": 1160,
+      "w": 320,
+      "h": 105,
+      "title": "Serviço de análise de crédito",
+      "detail": "GCP | Mesmo serviço da etapa 02\nCliente síncrono da PDEC",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "pdec2",
+      "x": 550,
+      "y": 1160,
+      "w": 300,
+      "h": 105,
+      "title": "PDEC",
+      "detail": "GCP / Kubernetes (K8s)\nPDD, score e rating",
+      "kind": "component",
+      "change": "existing"
+    },
+    {
+      "id": "humanstage",
+      "x": 40,
+      "y": 1565,
+      "w": 1620,
+      "h": 215,
+      "title": "04   ANÁLISE MANUAL INTERNA",
+      "detail": "Nova mesa interna, com interface e serviço próprios integrados aos eventos.",
+      "kind": "group"
+    },
+    {
+      "id": "kafkamanual",
+      "x": 70,
+      "y": 1650,
+      "w": 320,
+      "h": 94,
+      "title": "Confluent Kafka",
+      "detail": "Derivação / decisão manual",
+      "kind": "component"
+    },
+    {
+      "id": "newdesk",
+      "x": 550,
+      "y": 1650,
+      "w": 300,
+      "h": 94,
+      "title": "Nova mesa de crédito",
+      "detail": "GCP | Interface e serviço próprios\nFila e decisão manual por eventos",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "human",
+      "x": 1110,
+      "y": 1650,
+      "w": 460,
+      "h": 94,
+      "title": "Mesa de crédito",
+      "detail": "Analista interno\nGestão de filas na nova mesa",
+      "kind": "actor"
+    },
+    {
+      "id": "legend",
+      "x": 40,
+      "y": 1810,
+      "w": 1620,
+      "h": 30,
+      "title": "",
+      "detail": "Pontilhado: comunicação assíncrona por eventos / análise humana. Contínuo: acesso direto / persistência. PDEC, Kafka e análise repetidos: mesmos serviços.",
+      "kind": "text"
+    },
+    {
+      "id": "capturechannel",
+      "x": 70,
+      "y": 555,
+      "w": 320,
+      "h": 80,
+      "title": "Canal",
+      "detail": "Solicita captura da proposta",
+      "kind": "component"
+    },
+    {
+      "id": "modernrule",
+      "x": 970,
+      "y": 1370,
+      "w": 660,
+      "h": 115,
+      "title": "CONTROLE DA PROPOSTA EXTERNA",
+      "detail": "A análise não encaminha a proposta ao pagamento interno.\nStatus e resultado retornam ao responsável pela proposta.\nAzul: novo desenvolvimento. Branco: componente existente.",
+      "kind": "note"
+    }
+  ],
+  "edges": [
+    {
+      "id": "direct",
+      "source": "channels",
+      "target": "pdec1",
+      "label": "Elegibilidade / simulação",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "saveproposal",
+      "source": "externalproposal",
+      "target": "proposalstore",
+      "label": "Persiste",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "requestcredit",
+      "source": "externalproposal",
+      "target": "kafka",
+      "label": "Proposta persistida",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "consumecredit",
+      "source": "kafka",
+      "target": "credit",
+      "label": "Evento inicia análise / resultados",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "creditevents",
+      "source": "credit",
+      "target": "kafka",
+      "label": "Publica processamento / resultado",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": true,
+      "via": 860
+    },
+    {
+      "id": "notifyexternal",
+      "source": "kafka",
+      "target": "externalproposal",
+      "label": "Resultado da análise",
+      "sourceSide": "top",
+      "targetSide": "top",
+      "async_": true,
+      "via": 680
+    },
+    {
+      "id": "saveanalysis",
+      "source": "credit",
+      "target": "mysql",
+      "label": "Persiste análise",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "decision",
+      "source": "creditprocessing",
+      "target": "pdec2",
+      "label": "Chamada síncrona",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "decisionresult",
+      "source": "pdec2",
+      "target": "creditprocessing",
+      "label": "Resultado síncrono",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": 1310
+    },
+    {
+      "id": "manualrequest",
+      "source": "kafkamanual",
+      "target": "newdesk",
+      "label": "Derivação",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "manualresult",
+      "source": "newdesk",
+      "target": "kafkamanual",
+      "label": "Decisão manual",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": true,
+      "via": 1760
+    },
+    {
+      "id": "manual",
+      "source": "newdesk",
+      "target": "human",
+      "label": "Análise / decisão",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "captureentry",
+      "source": "capturechannel",
+      "target": "externalproposal",
+      "label": "Solicita captura",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": false,
+      "via": null
+    }
+  ]
+}

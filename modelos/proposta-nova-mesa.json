@@ -1,0 +1,344 @@
+{
+  "name": "Nova mesa — propostas FIDC",
+  "width": 1700,
+  "height": 1740,
+  "nodes": [
+    {
+      "id": "heading",
+      "x": 40,
+      "y": 25,
+      "w": 1620,
+      "h": 80,
+      "title": "ANÁLISE DE CRÉDITO",
+      "detail": "Nova mesa simplificada na PDEC-JULG / Propostas FIDC no novo Building Block de Propostas",
+      "kind": "heading"
+    },
+    {
+      "id": "outside",
+      "x": 40,
+      "y": 130,
+      "w": 340,
+      "h": 1310,
+      "title": "CANAL EXTERNO",
+      "detail": "Opção: entrada por API e callback",
+      "kind": "group"
+    },
+    {
+      "id": "inside",
+      "x": 440,
+      "y": 130,
+      "w": 1220,
+      "h": 1310,
+      "title": "ANÁLISE DE CRÉDITO · NOVA MESA FIDC",
+      "detail": "Esteira no GCP integrada ao Building Block de Propostas e à mesa simplificada na PDEC-JULG.",
+      "kind": "group"
+    },
+    {
+      "id": "channel",
+      "x": 70,
+      "y": 250,
+      "w": 280,
+      "h": 110,
+      "title": "Canal externo",
+      "detail": "Envia proposta FIDC por API\nRecebe protocolo de aceite",
+      "kind": "component"
+    },
+    {
+      "id": "credit",
+      "x": 520,
+      "y": 250,
+      "w": 360,
+      "h": 110,
+      "title": "Esteira de análise",
+      "detail": "GCP | Orquestra gravação e análise\nAPI síncrona: aceite com protocolo",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "pdec",
+      "x": 1170,
+      "y": 250,
+      "w": 430,
+      "h": 110,
+      "title": "PDEC",
+      "detail": "GCP / Kubernetes (K8s)\nAnálise automática",
+      "kind": "component"
+    },
+    {
+      "id": "proposalblock",
+      "x": 520,
+      "y": 530,
+      "w": 360,
+      "h": 130,
+      "title": "Building Block de Propostas",
+      "detail": "Salva a proposta com marcação FIDC\nNovo Building Block de Propostas\nPersistência sob sua responsabilidade",
+      "kind": "component"
+    },
+    {
+      "id": "mysql",
+      "x": 520,
+      "y": 850,
+      "w": 360,
+      "h": 130,
+      "title": "MySQL cloud",
+      "detail": "Estado e resultados da análise\nReferência à proposta no Building Block\nProtocolo e controle do callback",
+      "kind": "database",
+      "change": "new"
+    },
+    {
+      "id": "kafka",
+      "x": 1030,
+      "y": 530,
+      "w": 300,
+      "h": 110,
+      "title": "Confluent Kafka",
+      "detail": "Solicitações e decisões de análise\nIntegração proposta por eventos",
+      "kind": "component"
+    },
+    {
+      "id": "newdesk",
+      "x": 1030,
+      "y": 850,
+      "w": 300,
+      "h": 130,
+      "title": "PDEC-JULG · Mesa FIDC",
+      "detail": "Mesa simplificada\nFila única de propostas FIDC\nSomente migradas para o novo BB",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "human",
+      "x": 1390,
+      "y": 850,
+      "w": 240,
+      "h": 110,
+      "title": "Analista interno",
+      "detail": "Analisa propostas FIDC\nRegistra a decisão",
+      "kind": "actor"
+    },
+    {
+      "id": "status",
+      "x": 520,
+      "y": 1170,
+      "w": 360,
+      "h": 130,
+      "title": "FIM DA ANÁLISE · FIDC",
+      "detail": "Proposta marcada como FIDC\nEncerra na análise de crédito\nSem formalização ou pagamento",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "deskaccess",
+      "x": 1030,
+      "y": 1170,
+      "w": 600,
+      "h": 130,
+      "title": "ESCOPO DA MESA SIMPLIFICADA",
+      "detail": "Exibe apenas propostas FIDC já migradas para o novo Building Block.\nFila única, sem gestão de filas.\nPropostas legadas não migradas ficam fora desta mesa.",
+      "kind": "note"
+    },
+    {
+      "id": "contract",
+      "x": 70,
+      "y": 530,
+      "w": 280,
+      "h": 145,
+      "title": "OPÇÃO API + CALLBACK",
+      "detail": "Entrada síncrona: protocolo\nApós conclusão: API do canal\nChamada síncrona com resposta\nCorrelação por protocolo e proposta",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "channelapi",
+      "x": 70,
+      "y": 1170,
+      "w": 280,
+      "h": 130,
+      "title": "API externa do canal",
+      "detail": "Recebe resultado final\nProtocolo + ID da proposta\nResponde à chamada síncrona",
+      "kind": "component"
+    },
+    {
+      "id": "scope",
+      "x": 40,
+      "y": 1480,
+      "w": 1620,
+      "h": 165,
+      "title": "ESCOPO DA TERCEIRA VISÃO",
+      "detail": "A proposta é salva no novo Building Block de Propostas com a marcação FIDC. MySQL mantém os dados da análise e da integração.\nA mesa simplificada fica dentro da PDEC-JULG e exibe apenas propostas FIDC já migradas para o novo Building Block.\nHá uma única fila de propostas FIDC, sem gestão de filas. Nenhum acesso ao Sybase, EJB ou PTA legado.\nA proposta encerra seu fluxo na análise de crédito, inclusive quando aprovada: sem encaminhamento à formalização ou ao pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do canal.",
+      "kind": "note"
+    },
+    {
+      "id": "legend",
+      "x": 40,
+      "y": 1680,
+      "w": 1620,
+      "h": 40,
+      "title": "",
+      "detail": "Azul: a desenvolver / implantar. Branco: referência. Pontilhado: eventos / análise humana. Contínuo: API síncrona / resposta / persistência.",
+      "kind": "text"
+    }
+  ],
+  "edges": [
+    {
+      "id": "entry",
+      "source": "channel",
+      "target": "credit",
+      "label": "Solicita via API",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "saveproposal",
+      "source": "credit",
+      "target": "proposalblock",
+      "label": "Salva proposta FIDC",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "proposalreference",
+      "source": "proposalblock",
+      "target": "credit",
+      "label": "ID da proposta",
+      "sourceSide": "right",
+      "targetSide": "right",
+      "async_": false,
+      "via": 940
+    },
+    {
+      "id": "decision",
+      "source": "credit",
+      "target": "pdec",
+      "label": "Solicita decisão",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "result",
+      "source": "pdec",
+      "target": "credit",
+      "label": "Resultado / derivação",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": 420
+    },
+    {
+      "id": "returnchannel",
+      "source": "credit",
+      "target": "channel",
+      "label": "Protocolo de aceite",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": 470
+    },
+    {
+      "id": "persist",
+      "source": "credit",
+      "target": "mysql",
+      "label": "Persiste análise",
+      "sourceSide": "left",
+      "targetSide": "left",
+      "async_": false,
+      "via": 475
+    },
+    {
+      "id": "derive",
+      "source": "credit",
+      "target": "kafka",
+      "label": "Deriva FIDC migrada",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": true,
+      "via": 490
+    },
+    {
+      "id": "manualrequest",
+      "source": "kafka",
+      "target": "newdesk",
+      "label": "FIDC migradas ao BB",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": true,
+      "via": null
+    },
+    {
+      "id": "manualresult",
+      "source": "newdesk",
+      "target": "kafka",
+      "label": "Decisão manual",
+      "sourceSide": "left",
+      "targetSide": "left",
+      "async_": true,
+      "via": 970
+    },
+    {
+      "id": "consolidate",
+      "source": "kafka",
+      "target": "credit",
+      "label": "Consome decisão",
+      "sourceSide": "bottom",
+      "targetSide": "right",
+      "async_": true,
+      "via": 730
+    },
+    {
+      "id": "humanrequest",
+      "source": "newdesk",
+      "target": "human",
+      "label": "Análise",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "humanresult",
+      "source": "human",
+      "target": "newdesk",
+      "label": "Registra decisão",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": true,
+      "via": 1030
+    },
+    {
+      "id": "statusrule",
+      "source": "mysql",
+      "target": "status",
+      "label": "Conclui análise FIDC",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "notifychannel",
+      "source": "status",
+      "target": "channelapi",
+      "label": "API síncrona",
+      "sourceSide": "left",
+      "targetSide": "right",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "callbackresponse",
+      "source": "channelapi",
+      "target": "status",
+      "label": "Confirma recebimento",
+      "sourceSide": "bottom",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": 1380
+    }
+  ]
+}
