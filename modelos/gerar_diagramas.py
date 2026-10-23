@@ -144,47 +144,44 @@ def ejb_proposal_model():
     return m
 
 def new_desk_model():
-    m=dict(name='Nova mesa — propostas FIDC',width=1700,height=1740,nodes=[],edges=[])
+    # O objeto é a solicitação de análise de crédito: sem proposta e sem Building Block de Propostas.
+    m=dict(name='Nova mesa — solicitações FIDC',width=1700,height=1560,nodes=[],edges=[])
     n=m['nodes'];e=m['edges']
     n.extend([
-      node('heading',40,25,'ANÁLISE DE CRÉDITO','Nova mesa simplificada na PDEC-JULG / Propostas FIDC no novo Building Block de Propostas',w=1620,h=80,kind='heading'),
-      node('outside',40,130,'CANAL EXTERNO','Opção: entrada por API e callback',w=340,h=1310,kind='group'),
-      node('inside',440,130,'ANÁLISE DE CRÉDITO · NOVA MESA FIDC','Esteira no GCP integrada ao Building Block de Propostas e à mesa simplificada na PDEC-JULG.',w=1220,h=1310,kind='group'),
-      node('channel',70,250,'Canal externo','Envia proposta FIDC por API\nRecebe protocolo de aceite',w=280,h=110),
-      node('credit',520,250,'Esteira de análise','GCP | Orquestra gravação e análise\nAPI síncrona: aceite com protocolo',w=360,h=110),
+      node('heading',40,25,'ANÁLISE DE CRÉDITO','Nova mesa simplificada na PCRE-JULG | Argos / Solicitações de análise de crédito FIDC, sem proposta',w=1620,h=80,kind='heading'),
+      node('outside',40,130,'PARCEIRO','Opção: entrada por API e callback, com mTLS',w=340,h=1130,kind='group'),
+      node('inside',440,130,'ANÁLISE DE CRÉDITO · NOVA MESA FIDC','Esteira no GCP com persistência própria, integrada à PDEC e à mesa simplificada na PCRE-JULG | Argos.',w=1220,h=1130,kind='group'),
+      node('channel',70,250,'Parceiro','Solicita análise de crédito FIDC\nRecebe protocolo de aceite\nCertificado de cliente (mTLS)',w=280,h=110),
+      node('credit',520,250,'Esteira de análise','GCP | Recebe a solicitação de análise\nPersiste a análise e retorna ao parceiro\nAPI síncrona: aceite com protocolo',w=360,h=130),
       node('pdec',1170,250,'PDEC','GCP / Kubernetes (K8s)\nAnálise automática',w=430,h=110),
-      node('proposalblock',520,530,'Building Block de Propostas','Salva a proposta com marcação FIDC\nNovo Building Block de Propostas\nPersistência sob sua responsabilidade',w=360,h=130),
-      node('mysql',520,850,'MySQL cloud','Estado e resultados da análise\nReferência à proposta no Building Block\nProtocolo e controle do callback',w=360,h=130,kind='database'),
+      node('mysql',520,530,'MySQL cloud','Base da esteira de análise\nSolicitação, estado e resultado da análise\nProtocolo e controle do retorno ao parceiro',w=360,h=130,kind='database'),
       node('kafka',1030,530,'Confluent Kafka','Solicitações e decisões de análise\nIntegração proposta por eventos',w=300,h=110),
-      node('newdesk',1030,850,'PDEC-JULG · Mesa FIDC','Mesa simplificada\nFila única de propostas FIDC\nSomente migradas para o novo BB',w=300,h=130),
-      node('human',1390,850,'Analista interno','Analisa propostas FIDC\nRegistra a decisão',w=240,h=110,kind='actor'),
-      node('status',520,1170,'FIM DA ANÁLISE · FIDC','Proposta marcada como FIDC\nEncerra na análise de crédito\nSem formalização ou pagamento',w=360,h=130),
-      node('deskaccess',1030,1170,'ESCOPO DA MESA SIMPLIFICADA','Exibe apenas propostas FIDC já migradas para o novo Building Block.\nFila única, sem gestão de filas.\nPropostas legadas não migradas ficam fora desta mesa.',w=600,h=130,kind='note'),
-      node('contract',70,530,'OPÇÃO API + CALLBACK','Entrada síncrona: protocolo\nApós conclusão: API do canal\nChamada síncrona com resposta\nCorrelação por protocolo e proposta',w=280,h=145),
-      node('channelapi',70,1170,'API externa do canal','Recebe resultado final\nProtocolo + ID da proposta\nResponde à chamada síncrona',w=280,h=130),
-      node('scope',40,1480,'ESCOPO DA TERCEIRA VISÃO','A proposta é salva no novo Building Block de Propostas com a marcação FIDC. MySQL mantém os dados da análise e da integração.\nA mesa simplificada fica dentro da PDEC-JULG e exibe apenas propostas FIDC já migradas para o novo Building Block.\nHá uma única fila de propostas FIDC, sem gestão de filas. Nenhum acesso ao Sybase, EJB ou PTA legado.\nA proposta encerra seu fluxo na análise de crédito, inclusive quando aprovada: sem encaminhamento à formalização ou ao pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do canal.',w=1620,h=165,kind='note'),
-      node('legend',40,1680,'','Azul: a desenvolver / implantar. Branco: referência. Pontilhado: eventos / análise humana. Contínuo: API síncrona / resposta / persistência.',w=1620,h=40,kind='text')
+      node('newdesk',1030,850,'PCRE-JULG | Argos · Mesa FIDC','Mesa simplificada\nFila única de solicitações FIDC\nDerivadas pela esteira de análise',w=300,h=130),
+      node('human',1390,850,'Analista interno','Analisa solicitações FIDC\nRegistra a decisão',w=240,h=110,kind='actor'),
+      node('deskaccess',1030,1090,'ESCOPO DA MESA SIMPLIFICADA','Exibe apenas solicitações de análise de crédito FIDC derivadas pela esteira.\nFila única, sem gestão de filas.\nSem propostas: o Building Block de Propostas não participa.',w=600,h=130,kind='note'),
+      node('channelapi',70,530,'API do parceiro','Recebe resultado final\nProtocolo + ID da solicitação\nResponde à chamada síncrona\nExige mTLS',w=280,h=130),
+      node('contract',70,850,'OPÇÃO API + CALLBACK','Entrada síncrona: protocolo\nApós conclusão: API do parceiro\nChamada síncrona com resposta\nCorrelação pelo protocolo\nmTLS nas duas chamadas',w=280,h=165),
+      node('scope',40,1300,'ESCOPO DA TERCEIRA VISÃO','O objeto é a solicitação de análise de crédito FIDC, não a proposta. O Building Block de Propostas não participa deste fluxo.\nA própria esteira de análise persiste a solicitação e a análise no MySQL e, ao concluir, retorna o resultado ao parceiro.\nA mesa simplificada fica dentro da PCRE-JULG | Argos e exibe apenas solicitações FIDC derivadas, em fila única, sem gestão de filas.\nNenhum acesso ao Sybase, EJB ou PTA legado. O fluxo encerra na análise de crédito: não gera proposta, formalização ou pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do parceiro. As duas chamadas exigem mTLS.',w=1620,h=165,kind='note'),
+      node('legend',40,1500,'','Azul: a desenvolver / implantar. Branco: referência. Pontilhado: eventos / análise humana. Contínuo: API síncrona / resposta / persistência.',w=1620,h=40,kind='text')
     ])
+    # A ordem das ligações define a posição das portas em cada lado das caixas.
     e.extend([
-      link('entry','channel','credit','Solicita via API'),
-      link('saveproposal','credit','proposalblock','Salva proposta FIDC','bottom','top'),
-      link('proposalreference','proposalblock','credit','ID da proposta','right','right',via=940),
+      link('entry','channel','credit','Solicitação (mTLS)'),
+      link('returnchannel','credit','channel','Protocolo de aceite','left','right'),
+      link('notifychannel','credit','channelapi','Resultado (mTLS)','left','right'),
+      link('callbackresponse','channelapi','credit','Confirma recebimento','right','left'),
       link('decision','credit','pdec','Solicita decisão'),
+      link('persist','credit','mysql','Persiste solicitação e análise','bottom','top'),
       link('result','pdec','credit','Resultado / derivação','bottom','bottom',via=420),
-      link('returnchannel','credit','channel','Protocolo de aceite','bottom','bottom',via=470),
-      link('persist','credit','mysql','Persiste análise','left','left',via=475),
-      link('derive','credit','kafka','Deriva FIDC migrada','bottom','top',True,via=490),
-      link('manualrequest','kafka','newdesk','FIDC migradas ao BB','bottom','top',True),
+      link('derive','credit','kafka','Deriva análise manual','bottom','top',True,via=490),
+      link('manualrequest','kafka','newdesk','Solicitações FIDC','bottom','top',True),
       link('manualresult','newdesk','kafka','Decisão manual','left','left',True,via=970),
       link('consolidate','kafka','credit','Consome decisão','bottom','right',True,via=730),
       link('humanrequest','newdesk','human','Análise'),
-      link('humanresult','human','newdesk','Registra decisão','bottom','bottom',True,via=1030),
-      link('statusrule','mysql','status','Conclui análise FIDC','bottom','top'),
-      link('notifychannel','status','channelapi','API síncrona','left','right'),
-      link('callbackresponse','channelapi','status','Confirma recebimento','bottom','bottom',via=1380)
+      link('humanresult','human','newdesk','Registra decisão','bottom','bottom',True,via=1030)
     ])
     for item in n:
-        if item['id'] in {'credit','mysql','newdesk','status','contract'}:
+        if item['id'] in {'credit','mysql','newdesk','contract'}:
             item['change']='new'
     return m
 

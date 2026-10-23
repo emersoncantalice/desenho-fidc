@@ -2,7 +2,7 @@
 
 ## Objetivo e escopo
 
-Comparar o fluxo atual e duas propostas de integração. O objeto analisado é a proposta de crédito. No cenário final, um sistema externo ao domínio de crédito persiste e gerencia a proposta; a análise de crédito recebe a solicitação e devolve o resultado por eventos Kafka. Esse sistema é distinto do provedor de análise manual externa, que recebe apenas os dados necessários à sua avaliação.
+Comparar o fluxo atual e duas propostas de integração. O objeto analisado é a proposta de crédito, exceto na vista 3, em que o objeto é a solicitação de análise de crédito FIDC, sem proposta. No cenário final, um sistema externo ao domínio de crédito persiste e gerencia a proposta; a análise de crédito recebe a solicitação e devolve o resultado por eventos Kafka. Esse sistema é distinto do provedor de análise manual externa, que recebe apenas os dados necessários à sua avaliação.
 
 A PDEC executa elegibilidade, simulação e decisão na proposta, calculando PDD, score e rating. Quando não decide, a análise segue para uma pessoa da mesa de crédito. No legado, o PTA apresenta a proposta e registra a decisão no Sybase; o PowerApps organiza as filas.
 
@@ -22,10 +22,10 @@ Esta revisão abre o novo cenário final sem substituir o rascunho da versão an
 | --- | --- |
 | AS IS | [Desenho atual](../diagramas/as-is.svg) |
 | Proposta mantendo EJB | [Desenho com EJB](../diagramas/proposta-com-ejb.svg) |
-| Nova mesa simplificada FIDC na PDEC-JULG | [Esteira modernizada e nova mesa](../diagramas/proposta-nova-mesa.svg) |
+| Nova mesa simplificada FIDC na PCRE-JULG \| Argos | [Esteira modernizada e nova mesa](../diagramas/proposta-nova-mesa.svg) |
 | Supermodernizado: proposta externa e análise por eventos | [Desenho GCP / MySQL cloud](../diagramas/proposta-modernizada-gcp.svg) |
 
-São vistas lógicas de componentes e fluxos, não modelos ArchiMate formais. Linhas pontilhadas indicam fluxos assíncronos. Os projetos editáveis usam JSON; SVG é o formato de exportação. `modelos/gerar_diagramas.py` gera os modelos iniciais e o aplicativo, com Python e Node.js. O editor não depende dessas ferramentas para funcionar. Atualização: 2026-10-22.
+São vistas lógicas de componentes e fluxos, não modelos ArchiMate formais. Linhas pontilhadas indicam fluxos assíncronos. Os projetos editáveis usam JSON; SVG é o formato de exportação. `modelos/gerar_diagramas.py` gera os modelos iniciais e o aplicativo, com Python e Node.js. O editor não depende dessas ferramentas para funcionar. Atualização: 2026-10-23.
 
 ## Vista 1 — AS IS
 
@@ -60,33 +60,35 @@ Mantém a esteira Java/EJB no JBoss on-premises e o Sybase. **Os canais interno 
 
 O estado de andamento da análise e a restrição à formalização e ao pagamento são informações distintas, mesmo que a implementação use um status composto. Definir o código, as transições e o ponto de validação do bloqueio. A existência de qualquer exceção ou liberação dependerá de uma regra explicitamente definida.
 
-## Vista 3 — Mesa simplificada FIDC na PDEC-JULG
+## Vista 3 — Mesa simplificada FIDC na PCRE-JULG | Argos
 
-As propostas do canal externo entram na esteira modernizada de análise no GCP. **A proposta deve ser salva pelo novo Building Block de Propostas e marcada como FIDC.** A esteira utiliza esse componente para a gravação e mantém a referência da proposta ao solicitar a decisão à PDEC, que executa no Kubernetes do GCP. O armazenamento da proposta fica sob responsabilidade do Building Block; sua tecnologia e seu contrato técnico ainda não foram detalhados.
+**Nesta vista, o objeto é a solicitação de análise de crédito FIDC, não a proposta.** O parceiro envia a solicitação à esteira modernizada de análise no GCP, que pede a decisão à PDEC, executada no Kubernetes do GCP. Nenhuma proposta é criada ou gravada, e o Building Block de Propostas não participa do fluxo.
 
-Quando necessária a análise humana, a proposta segue para a **mesa simplificada dentro da PDEC-JULG**. Essa mesa exibe **somente propostas FIDC já migradas para o novo Building Block de Propostas**. Propostas legadas ainda não migradas não ficam disponíveis nessa visão. A mesa possui **uma única fila de propostas FIDC, sem gestão de filas**; não prevê múltiplas filas ou ferramentas de administração de filas.
+**A própria esteira de análise persiste a solicitação e a análise** no MySQL cloud: dados recebidos, estado, resultado, protocolo e controle do retorno ao parceiro. Ao concluir a análise, a esteira devolve o resultado diretamente ao parceiro.
 
-**A proposta FIDC encerra seu fluxo na análise de crédito, inclusive quando aprovada.** A conclusão registra o resultado e o devolve ao canal, sem encaminhar a proposta à formalização ou ao pagamento. Encerrar o fluxo não significa excluir a proposta persistida ou seu histórico.
+Quando necessária a análise humana, a solicitação segue para a **mesa simplificada dentro da PCRE-JULG | Argos**. Essa mesa exibe **somente as solicitações de análise de crédito FIDC derivadas pela esteira**. A mesa possui **uma única fila de solicitações FIDC, sem gestão de filas**; não prevê múltiplas filas ou ferramentas de administração de filas.
 
-Esse caminho não passa pelo EJB, não consulta nem grava no Sybase e não depende do PTA legado. A mesa na PDEC-JULG registra a decisão pela integração de serviço, sem acesso direto às bases. Após concluir a análise, a esteira envia o resultado ao canal externo por uma chamada síncrona à API do canal e aguarda sua resposta.
+**A solicitação FIDC encerra seu fluxo na análise de crédito, inclusive quando aprovada.** A conclusão registra o resultado e o devolve ao parceiro; não há proposta, formalização ou pagamento. Encerrar o fluxo não significa excluir a solicitação persistida ou seu histórico.
 
-MySQL cloud armazena o estado e os resultados da análise, vinculados à proposta salva no Building Block, além do protocolo e do controle de entrega do callback na opção por API. A persistência da proposta continua no Building Block. Confluent Kafka permanece como a proposta de integração interna para solicitação e decisão manual; essa mensageria não representa gestão de filas da mesa. Os contratos de gravação, a identificação de FIDC e de migração, as APIs e os eventos ainda precisam ser definidos.
+Esse caminho não passa pelo EJB, não consulta nem grava no Sybase e não depende do PTA legado. A mesa na PCRE-JULG | Argos registra a decisão pela integração de serviço, sem acesso direto às bases. Confluent Kafka permanece como a proposta de integração interna para derivação e decisão manual; essa mensageria não representa gestão de filas da mesa. Os contratos da solicitação, a identificação de FIDC, as APIs e os eventos ainda precisam ser definidos.
 
-As peças a desenvolver ou implantar estão em azul. O Building Block de Propostas é o componente utilizado para persistir a proposta; a nova mesa simplificada será implementada dentro da PDEC-JULG. PDEC e Confluent Kafka são reutilizados, com as integrações necessárias à esteira.
+As peças a desenvolver ou implantar estão em azul: a esteira de análise, seu MySQL cloud, a mesa simplificada dentro da PCRE-JULG | Argos e a opção de integração por API e callback. PDEC e Confluent Kafka são reutilizados, com as integrações necessárias à esteira.
 
-### Opção de integração com o canal por API e callback
+### Opção de integração com o parceiro por API e callback
 
-O desenho inclui uma opção para a entrada e a saída externas por **chamadas síncronas de API, com requisição e resposta**. A integração interna por eventos pode ser mantida. O canal envia a solicitação e aguarda o protocolo de aceite na resposta. Após a análise, a esteira faz uma nova chamada síncrona à API do canal, enviando a conclusão e aguardando a confirmação de recebimento.
+O desenho inclui uma opção para a entrada e a saída externas por **chamadas síncronas de API, com requisição e resposta**. A integração interna por eventos pode ser mantida. O parceiro envia a solicitação e aguarda o protocolo de aceite na resposta. Após a análise, a esteira faz uma nova chamada síncrona à API do parceiro, enviando a conclusão e aguardando a confirmação de recebimento.
 
-1. O canal chama de forma síncrona a API de entrada da esteira com os dados da solicitação FIDC e uma chave de idempotência, aguardando a resposta dessa chamada.
-2. Após validar e registrar a solicitação de forma durável, a esteira devolve um **protocolo único de aceite** e o estado inicial. Esse retorno confirma o recebimento, sem aguardar a decisão automática ou a análise humana. Repetir a mesma solicitação com a mesma chave deve recuperar o mesmo protocolo.
-3. A esteira salva a proposta marcada como FIDC pelo Building Block, associa o identificador da proposta ao protocolo e executa a análise. A mesa simplificada na PDEC-JULG continua exibindo apenas propostas FIDC já migradas para o novo Building Block, em fila única.
-4. Ao finalizar a análise automática ou manual, a esteira persiste o resultado e registra de forma confiável a notificação pendente. Em seguida, **chama de forma síncrona a API externa do canal**, previamente cadastrada, com o protocolo, o identificador da proposta, o identificador da notificação e o resultado final, aguardando sua resposta.
-5. O canal confirma o recebimento na resposta da própria chamada. A esteira aguarda essa resposta até o timeout definido no contrato. A entrega deve tolerar tentativas repetidas: o canal trata notificações duplicadas de forma idempotente, e a esteira registra as tentativas e reapresenta falhas conforme uma política a definir. Uma falha no callback não reinicia a análise nem altera sua decisão.
+**O acesso entre o parceiro e a esteira exige mTLS nas duas chamadas.** Na entrada, o parceiro apresenta seu certificado de cliente à API da esteira. No retorno, a API do parceiro exige mTLS e a esteira apresenta seu certificado. Uma chamada sem certificado válido é recusada antes de qualquer processamento.
 
-O protocolo de aceite e a conclusão pertencem a chamadas distintas. A requisição inicial termina com o protocolo; a análise ocorre entre essa resposta e a chamada de conclusão. **No desenho, a entrada, a chamada à API do canal e suas respostas usam linhas contínuas**, indicando comunicação síncrona. A confirmação técnica do canal registra o recebimento do resultado. O fluxo da proposta continua encerrado na análise, sem encaminhamento à formalização ou ao pagamento.
+1. O parceiro chama de forma síncrona a API de entrada da esteira com os dados da solicitação de análise de crédito FIDC e uma chave de idempotência, aguardando a resposta dessa chamada.
+2. Após validar e persistir a solicitação no MySQL, a esteira devolve um **protocolo único de aceite** e o estado inicial. Esse retorno confirma o recebimento, sem aguardar a decisão automática ou a análise humana. Repetir a mesma solicitação com a mesma chave deve recuperar o mesmo protocolo.
+3. A esteira executa a análise na PDEC e registra o andamento no MySQL, associado ao protocolo. Quando há derivação, a solicitação segue para a fila única da mesa simplificada na PCRE-JULG | Argos.
+4. Ao finalizar a análise automática ou manual, a esteira persiste o resultado e registra de forma confiável a notificação pendente. Em seguida, **chama de forma síncrona a API do parceiro**, previamente cadastrada, com o protocolo, o identificador da solicitação, o identificador da notificação e o resultado final, aguardando sua resposta.
+5. O parceiro confirma o recebimento na resposta da própria chamada. A esteira aguarda essa resposta até o timeout definido no contrato. A entrega deve tolerar tentativas repetidas: o parceiro trata notificações duplicadas de forma idempotente, e a esteira registra as tentativas e reapresenta falhas conforme uma política a definir. Uma falha no callback não reinicia a análise nem altera sua decisão.
 
-Esta é uma opção de integração, com endpoints, autenticação, contratos, prazos e política de retentativas ainda a definir. O controle técnico de entrega do callback é separado da fila única de trabalho da mesa.
+O protocolo de aceite e a conclusão pertencem a chamadas distintas. A requisição inicial termina com o protocolo; a análise ocorre entre essa resposta e a chamada de conclusão. **No desenho, a entrada, a chamada à API do parceiro e suas respostas usam linhas contínuas**, indicando comunicação síncrona. A confirmação técnica do parceiro registra o recebimento do resultado. A solicitação continua encerrada na análise, sem gerar proposta, formalização ou pagamento.
+
+Esta é uma opção de integração, com endpoints, contratos, prazos e política de retentativas ainda a definir. A autenticação usa mTLS; ainda falta definir a autoridade certificadora, a emissão, a rotação e a revogação dos certificados e a vinculação do certificado ao parceiro cadastrado. O controle técnico de entrega do callback é separado da fila única de trabalho da mesa.
 
 ## Vista 4 — Supermodernizado: somente componentes modernos
 
@@ -122,13 +124,13 @@ A hospedagem do Confluent Kafka e o produto gerenciado do MySQL cloud ainda não
 | Infraestrutura modernizada | Serviços no GCP; runtime dos demais serviços e região ainda a definir. |
 | Mensageria modernizada | Confluent Kafka para entrada, processamento e conclusão da análise de crédito. |
 | Análise manual | Pessoa da mesa interna; terceira e quarta visões usam nova mesa, com conclusão assíncrona para o canal. |
-| Objeto de análise | A proposta existente, com correlação da solicitação e do resultado. |
-| Acesso externo | Canal / captura participa do contrato de integração. Nenhum acesso direto às bases internas. |
-| Persistência da proposta | Novo Building Block de Propostas na visão 3, com marcação FIDC; componente separado de captura na visão 4; EJB de crédito / Sybase nos cenários legados. |
-| Persistência da análise | MySQL cloud no cenário final, substituindo o Sybase interno. |
-| Mesa de crédito | PTA nas visões legadas; mesa simplificada dentro da PDEC-JULG na visão 3; nova mesa com interface e serviço próprios na visão 4. |
-| Escopo da mesa FIDC | Na visão 3, fila única, sem gestão de filas; somente propostas FIDC já migradas para o novo Building Block de Propostas. |
-| Encerramento da proposta FIDC | Na visão 3, encerra na análise de crédito, inclusive quando aprovada; sem formalização ou pagamento. |
+| Objeto de análise | A proposta existente, com correlação da solicitação e do resultado. Na visão 3, a solicitação de análise de crédito FIDC, sem proposta. |
+| Acesso externo | Canal / captura / parceiro participa do contrato de integração. Nenhum acesso direto às bases internas. Na visão 3, entrada e retorno ao parceiro exigem mTLS. |
+| Persistência da proposta | Componente separado de captura na visão 4; EJB de crédito / Sybase nos cenários legados. A visão 3 não tem proposta nem usa o Building Block de Propostas. |
+| Persistência da análise | MySQL cloud no cenário final, substituindo o Sybase interno. Na visão 3, a própria esteira persiste a solicitação e a análise no MySQL cloud. |
+| Mesa de crédito | PTA nas visões legadas; mesa simplificada dentro da PCRE-JULG \| Argos na visão 3; nova mesa com interface e serviço próprios na visão 4. |
+| Escopo da mesa FIDC | Na visão 3, fila única, sem gestão de filas; somente solicitações FIDC derivadas pela esteira. |
+| Encerramento da solicitação FIDC | Na visão 3, encerra na análise de crédito, inclusive quando aprovada; o resultado volta ao parceiro, sem proposta, formalização ou pagamento. |
 
 Separar timeout de entrega técnica e prazo da análise humana. Definir idempotência, retentativas, fila de falhas, reprocessamento, auditoria e publicação confiável após persistência (por exemplo, outbox). Resultados duplicados ou tardios não podem sobrescrever uma decisão finalizada sem regra explícita.
 

@@ -769,9 +769,9 @@
       ]
     },
     {
-      "name": "Nova mesa — propostas FIDC",
+      "name": "Nova mesa — solicitações FIDC",
       "width": 1700,
-      "height": 1740,
+      "height": 1560,
       "nodes": [
         {
           "id": "heading",
@@ -780,7 +780,7 @@
           "w": 1620,
           "h": 80,
           "title": "ANÁLISE DE CRÉDITO",
-          "detail": "Nova mesa simplificada na PDEC-JULG / Propostas FIDC no novo Building Block de Propostas",
+          "detail": "Nova mesa simplificada na PCRE-JULG | Argos / Solicitações de análise de crédito FIDC, sem proposta",
           "kind": "heading"
         },
         {
@@ -788,9 +788,9 @@
           "x": 40,
           "y": 130,
           "w": 340,
-          "h": 1310,
-          "title": "CANAL EXTERNO",
-          "detail": "Opção: entrada por API e callback",
+          "h": 1130,
+          "title": "PARCEIRO",
+          "detail": "Opção: entrada por API e callback, com mTLS",
           "kind": "group"
         },
         {
@@ -798,9 +798,9 @@
           "x": 440,
           "y": 130,
           "w": 1220,
-          "h": 1310,
+          "h": 1130,
           "title": "ANÁLISE DE CRÉDITO · NOVA MESA FIDC",
-          "detail": "Esteira no GCP integrada ao Building Block de Propostas e à mesa simplificada na PDEC-JULG.",
+          "detail": "Esteira no GCP com persistência própria, integrada à PDEC e à mesa simplificada na PCRE-JULG | Argos.",
           "kind": "group"
         },
         {
@@ -809,8 +809,8 @@
           "y": 250,
           "w": 280,
           "h": 110,
-          "title": "Canal externo",
-          "detail": "Envia proposta FIDC por API\nRecebe protocolo de aceite",
+          "title": "Parceiro",
+          "detail": "Solicita análise de crédito FIDC\nRecebe protocolo de aceite\nCertificado de cliente (mTLS)",
           "kind": "component"
         },
         {
@@ -818,9 +818,9 @@
           "x": 520,
           "y": 250,
           "w": 360,
-          "h": 110,
+          "h": 130,
           "title": "Esteira de análise",
-          "detail": "GCP | Orquestra gravação e análise\nAPI síncrona: aceite com protocolo",
+          "detail": "GCP | Recebe a solicitação de análise\nPersiste a análise e retorna ao parceiro\nAPI síncrona: aceite com protocolo",
           "kind": "component",
           "change": "new"
         },
@@ -835,23 +835,13 @@
           "kind": "component"
         },
         {
-          "id": "proposalblock",
+          "id": "mysql",
           "x": 520,
           "y": 530,
           "w": 360,
           "h": 130,
-          "title": "Building Block de Propostas",
-          "detail": "Salva a proposta com marcação FIDC\nNovo Building Block de Propostas\nPersistência sob sua responsabilidade",
-          "kind": "component"
-        },
-        {
-          "id": "mysql",
-          "x": 520,
-          "y": 850,
-          "w": 360,
-          "h": 130,
           "title": "MySQL cloud",
-          "detail": "Estado e resultados da análise\nReferência à proposta no Building Block\nProtocolo e controle do callback",
+          "detail": "Base da esteira de análise\nSolicitação, estado e resultado da análise\nProtocolo e controle do retorno ao parceiro",
           "kind": "database",
           "change": "new"
         },
@@ -871,8 +861,8 @@
           "y": 850,
           "w": 300,
           "h": 130,
-          "title": "PDEC-JULG · Mesa FIDC",
-          "detail": "Mesa simplificada\nFila única de propostas FIDC\nSomente migradas para o novo BB",
+          "title": "PCRE-JULG | Argos · Mesa FIDC",
+          "detail": "Mesa simplificada\nFila única de solicitações FIDC\nDerivadas pela esteira de análise",
           "kind": "component",
           "change": "new"
         },
@@ -883,65 +873,54 @@
           "w": 240,
           "h": 110,
           "title": "Analista interno",
-          "detail": "Analisa propostas FIDC\nRegistra a decisão",
+          "detail": "Analisa solicitações FIDC\nRegistra a decisão",
           "kind": "actor"
-        },
-        {
-          "id": "status",
-          "x": 520,
-          "y": 1170,
-          "w": 360,
-          "h": 130,
-          "title": "FIM DA ANÁLISE · FIDC",
-          "detail": "Proposta marcada como FIDC\nEncerra na análise de crédito\nSem formalização ou pagamento",
-          "kind": "component",
-          "change": "new"
         },
         {
           "id": "deskaccess",
           "x": 1030,
-          "y": 1170,
+          "y": 1090,
           "w": 600,
           "h": 130,
           "title": "ESCOPO DA MESA SIMPLIFICADA",
-          "detail": "Exibe apenas propostas FIDC já migradas para o novo Building Block.\nFila única, sem gestão de filas.\nPropostas legadas não migradas ficam fora desta mesa.",
+          "detail": "Exibe apenas solicitações de análise de crédito FIDC derivadas pela esteira.\nFila única, sem gestão de filas.\nSem propostas: o Building Block de Propostas não participa.",
           "kind": "note"
-        },
-        {
-          "id": "contract",
-          "x": 70,
-          "y": 530,
-          "w": 280,
-          "h": 145,
-          "title": "OPÇÃO API + CALLBACK",
-          "detail": "Entrada síncrona: protocolo\nApós conclusão: API do canal\nChamada síncrona com resposta\nCorrelação por protocolo e proposta",
-          "kind": "component",
-          "change": "new"
         },
         {
           "id": "channelapi",
           "x": 70,
-          "y": 1170,
+          "y": 530,
           "w": 280,
           "h": 130,
-          "title": "API externa do canal",
-          "detail": "Recebe resultado final\nProtocolo + ID da proposta\nResponde à chamada síncrona",
+          "title": "API do parceiro",
+          "detail": "Recebe resultado final\nProtocolo + ID da solicitação\nResponde à chamada síncrona\nExige mTLS",
           "kind": "component"
+        },
+        {
+          "id": "contract",
+          "x": 70,
+          "y": 850,
+          "w": 280,
+          "h": 165,
+          "title": "OPÇÃO API + CALLBACK",
+          "detail": "Entrada síncrona: protocolo\nApós conclusão: API do parceiro\nChamada síncrona com resposta\nCorrelação pelo protocolo\nmTLS nas duas chamadas",
+          "kind": "component",
+          "change": "new"
         },
         {
           "id": "scope",
           "x": 40,
-          "y": 1480,
+          "y": 1300,
           "w": 1620,
           "h": 165,
           "title": "ESCOPO DA TERCEIRA VISÃO",
-          "detail": "A proposta é salva no novo Building Block de Propostas com a marcação FIDC. MySQL mantém os dados da análise e da integração.\nA mesa simplificada fica dentro da PDEC-JULG e exibe apenas propostas FIDC já migradas para o novo Building Block.\nHá uma única fila de propostas FIDC, sem gestão de filas. Nenhum acesso ao Sybase, EJB ou PTA legado.\nA proposta encerra seu fluxo na análise de crédito, inclusive quando aprovada: sem encaminhamento à formalização ou ao pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do canal.",
+          "detail": "O objeto é a solicitação de análise de crédito FIDC, não a proposta. O Building Block de Propostas não participa deste fluxo.\nA própria esteira de análise persiste a solicitação e a análise no MySQL e, ao concluir, retorna o resultado ao parceiro.\nA mesa simplificada fica dentro da PCRE-JULG | Argos e exibe apenas solicitações FIDC derivadas, em fila única, sem gestão de filas.\nNenhum acesso ao Sybase, EJB ou PTA legado. O fluxo encerra na análise de crédito: não gera proposta, formalização ou pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do parceiro. As duas chamadas exigem mTLS.",
           "kind": "note"
         },
         {
           "id": "legend",
           "x": 40,
-          "y": 1680,
+          "y": 1500,
           "w": 1620,
           "h": 40,
           "title": "",
@@ -954,31 +933,41 @@
           "id": "entry",
           "source": "channel",
           "target": "credit",
-          "label": "Solicita via API",
+          "label": "Solicitação (mTLS)",
           "sourceSide": "right",
           "targetSide": "left",
           "async_": false,
           "via": null
         },
         {
-          "id": "saveproposal",
+          "id": "returnchannel",
           "source": "credit",
-          "target": "proposalblock",
-          "label": "Salva proposta FIDC",
-          "sourceSide": "bottom",
-          "targetSide": "top",
+          "target": "channel",
+          "label": "Protocolo de aceite",
+          "sourceSide": "left",
+          "targetSide": "right",
           "async_": false,
           "via": null
         },
         {
-          "id": "proposalreference",
-          "source": "proposalblock",
-          "target": "credit",
-          "label": "ID da proposta",
-          "sourceSide": "right",
+          "id": "notifychannel",
+          "source": "credit",
+          "target": "channelapi",
+          "label": "Resultado (mTLS)",
+          "sourceSide": "left",
           "targetSide": "right",
           "async_": false,
-          "via": 940
+          "via": null
+        },
+        {
+          "id": "callbackresponse",
+          "source": "channelapi",
+          "target": "credit",
+          "label": "Confirma recebimento",
+          "sourceSide": "right",
+          "targetSide": "left",
+          "async_": false,
+          "via": null
         },
         {
           "id": "decision",
@@ -987,6 +976,16 @@
           "label": "Solicita decisão",
           "sourceSide": "right",
           "targetSide": "left",
+          "async_": false,
+          "via": null
+        },
+        {
+          "id": "persist",
+          "source": "credit",
+          "target": "mysql",
+          "label": "Persiste solicitação e análise",
+          "sourceSide": "bottom",
+          "targetSide": "top",
           "async_": false,
           "via": null
         },
@@ -1001,30 +1000,10 @@
           "via": 420
         },
         {
-          "id": "returnchannel",
-          "source": "credit",
-          "target": "channel",
-          "label": "Protocolo de aceite",
-          "sourceSide": "bottom",
-          "targetSide": "bottom",
-          "async_": false,
-          "via": 470
-        },
-        {
-          "id": "persist",
-          "source": "credit",
-          "target": "mysql",
-          "label": "Persiste análise",
-          "sourceSide": "left",
-          "targetSide": "left",
-          "async_": false,
-          "via": 475
-        },
-        {
           "id": "derive",
           "source": "credit",
           "target": "kafka",
-          "label": "Deriva FIDC migrada",
+          "label": "Deriva análise manual",
           "sourceSide": "bottom",
           "targetSide": "top",
           "async_": true,
@@ -1034,7 +1013,7 @@
           "id": "manualrequest",
           "source": "kafka",
           "target": "newdesk",
-          "label": "FIDC migradas ao BB",
+          "label": "Solicitações FIDC",
           "sourceSide": "bottom",
           "targetSide": "top",
           "async_": true,
@@ -1079,36 +1058,6 @@
           "targetSide": "bottom",
           "async_": true,
           "via": 1030
-        },
-        {
-          "id": "statusrule",
-          "source": "mysql",
-          "target": "status",
-          "label": "Conclui análise FIDC",
-          "sourceSide": "bottom",
-          "targetSide": "top",
-          "async_": false,
-          "via": null
-        },
-        {
-          "id": "notifychannel",
-          "source": "status",
-          "target": "channelapi",
-          "label": "API síncrona",
-          "sourceSide": "left",
-          "targetSide": "right",
-          "async_": false,
-          "via": null
-        },
-        {
-          "id": "callbackresponse",
-          "source": "channelapi",
-          "target": "status",
-          "label": "Confirma recebimento",
-          "sourceSide": "bottom",
-          "targetSide": "bottom",
-          "async_": false,
-          "via": 1380
         }
       ]
     },
