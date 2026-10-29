@@ -10,7 +10,7 @@
       "w": 1620,
       "h": 80,
       "title": "ANÁLISE DE CRÉDITO",
-      "detail": "Nova mesa simplificada na PCRE-JULG | Argos / Solicitações de análise de crédito FIDC, sem proposta",
+      "detail": "Nova mesa simplificada na PCRE-JULG / Solicitações de análise de crédito FIDC, sem proposta",
       "kind": "heading"
     },
     {
@@ -30,7 +30,7 @@
       "w": 1220,
       "h": 1130,
       "title": "ANÁLISE DE CRÉDITO · NOVA MESA FIDC",
-      "detail": "Esteira no GCP com persistência própria, integrada à PDEC e à mesa simplificada na PCRE-JULG | Argos.",
+      "detail": "Esteira no GCP com persistência própria, integrada à PDEC e à mesa simplificada na PCRE-JULG.",
       "kind": "group"
     },
     {
@@ -91,7 +91,7 @@
       "y": 850,
       "w": 300,
       "h": 130,
-      "title": "PCRE-JULG | Argos · Mesa FIDC",
+      "title": "PCRE-JULG · Mesa FIDC",
       "detail": "Mesa simplificada\nFila única de solicitações FIDC\nDerivadas pela esteira de análise",
       "kind": "component",
       "change": "new"
@@ -144,7 +144,7 @@
       "w": 1620,
       "h": 165,
       "title": "ESCOPO DA TERCEIRA VISÃO",
-      "detail": "O objeto é a solicitação de análise de crédito FIDC, não a proposta. O Building Block de Propostas não participa deste fluxo.\nA própria esteira de análise persiste a solicitação e a análise no MySQL e, ao concluir, retorna o resultado ao parceiro.\nA mesa simplificada fica dentro da PCRE-JULG | Argos e exibe apenas solicitações FIDC derivadas, em fila única, sem gestão de filas.\nNenhum acesso ao Sybase, EJB ou PTA legado. O fluxo encerra na análise de crédito: não gera proposta, formalização ou pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do parceiro. As duas chamadas exigem mTLS.",
+      "detail": "O objeto é a solicitação de análise de crédito FIDC, não a proposta. O Building Block de Propostas não participa deste fluxo.\nA própria esteira de análise persiste a solicitação e a análise no MySQL e, ao concluir, retorna o resultado ao parceiro.\nA mesa simplificada fica dentro da PCRE-JULG e exibe apenas solicitações FIDC derivadas, em fila única, sem gestão de filas.\nNenhum acesso ao Sybase, EJB ou PTA legado. O fluxo encerra na análise de crédito: não gera proposta, formalização ou pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do parceiro. As duas chamadas exigem mTLS.",
       "kind": "note"
     },
     {

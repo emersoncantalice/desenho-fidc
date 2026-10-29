@@ -148,20 +148,20 @@ def new_desk_model():
     m=dict(name='Nova mesa — solicitações FIDC',width=1700,height=1560,nodes=[],edges=[])
     n=m['nodes'];e=m['edges']
     n.extend([
-      node('heading',40,25,'ANÁLISE DE CRÉDITO','Nova mesa simplificada na PCRE-JULG | Argos / Solicitações de análise de crédito FIDC, sem proposta',w=1620,h=80,kind='heading'),
+      node('heading',40,25,'ANÁLISE DE CRÉDITO','Nova mesa simplificada na PCRE-JULG / Solicitações de análise de crédito FIDC, sem proposta',w=1620,h=80,kind='heading'),
       node('outside',40,130,'PARCEIRO','Opção: entrada por API e callback, com mTLS',w=340,h=1130,kind='group'),
-      node('inside',440,130,'ANÁLISE DE CRÉDITO · NOVA MESA FIDC','Esteira no GCP com persistência própria, integrada à PDEC e à mesa simplificada na PCRE-JULG | Argos.',w=1220,h=1130,kind='group'),
+      node('inside',440,130,'ANÁLISE DE CRÉDITO · NOVA MESA FIDC','Esteira no GCP com persistência própria, integrada à PDEC e à mesa simplificada na PCRE-JULG.',w=1220,h=1130,kind='group'),
       node('channel',70,250,'Parceiro','Solicita análise de crédito FIDC\nRecebe protocolo de aceite\nCertificado de cliente (mTLS)',w=280,h=110),
       node('credit',520,250,'Esteira de análise','GCP | Recebe a solicitação de análise\nPersiste a análise e retorna ao parceiro\nAPI síncrona: aceite com protocolo',w=360,h=130),
       node('pdec',1170,250,'PDEC','GCP / Kubernetes (K8s)\nAnálise automática',w=430,h=110),
       node('mysql',520,530,'MySQL cloud','Base da esteira de análise\nSolicitação, estado e resultado da análise\nProtocolo e controle do retorno ao parceiro',w=360,h=130,kind='database'),
       node('kafka',1030,530,'Confluent Kafka','Solicitações e decisões de análise\nIntegração proposta por eventos',w=300,h=110),
-      node('newdesk',1030,850,'PCRE-JULG | Argos · Mesa FIDC','Mesa simplificada\nFila única de solicitações FIDC\nDerivadas pela esteira de análise',w=300,h=130),
+      node('newdesk',1030,850,'PCRE-JULG · Mesa FIDC','Mesa simplificada\nFila única de solicitações FIDC\nDerivadas pela esteira de análise',w=300,h=130),
       node('human',1390,850,'Analista interno','Analisa solicitações FIDC\nRegistra a decisão',w=240,h=110,kind='actor'),
       node('deskaccess',1030,1090,'ESCOPO DA MESA SIMPLIFICADA','Exibe apenas solicitações de análise de crédito FIDC derivadas pela esteira.\nFila única, sem gestão de filas.\nSem propostas: o Building Block de Propostas não participa.',w=600,h=130,kind='note'),
       node('channelapi',70,530,'API do parceiro','Recebe resultado final\nProtocolo + ID da solicitação\nResponde à chamada síncrona\nExige mTLS',w=280,h=130),
       node('contract',70,850,'OPÇÃO API + CALLBACK','Entrada síncrona: protocolo\nApós conclusão: API do parceiro\nChamada síncrona com resposta\nCorrelação pelo protocolo\nmTLS nas duas chamadas',w=280,h=165),
-      node('scope',40,1300,'ESCOPO DA TERCEIRA VISÃO','O objeto é a solicitação de análise de crédito FIDC, não a proposta. O Building Block de Propostas não participa deste fluxo.\nA própria esteira de análise persiste a solicitação e a análise no MySQL e, ao concluir, retorna o resultado ao parceiro.\nA mesa simplificada fica dentro da PCRE-JULG | Argos e exibe apenas solicitações FIDC derivadas, em fila única, sem gestão de filas.\nNenhum acesso ao Sybase, EJB ou PTA legado. O fluxo encerra na análise de crédito: não gera proposta, formalização ou pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do parceiro. As duas chamadas exigem mTLS.',w=1620,h=165,kind='note'),
+      node('scope',40,1300,'ESCOPO DA TERCEIRA VISÃO','O objeto é a solicitação de análise de crédito FIDC, não a proposta. O Building Block de Propostas não participa deste fluxo.\nA própria esteira de análise persiste a solicitação e a análise no MySQL e, ao concluir, retorna o resultado ao parceiro.\nA mesa simplificada fica dentro da PCRE-JULG e exibe apenas solicitações FIDC derivadas, em fila única, sem gestão de filas.\nNenhum acesso ao Sybase, EJB ou PTA legado. O fluxo encerra na análise de crédito: não gera proposta, formalização ou pagamento.\nOpção de integração externa: entrada síncrona com protocolo; após a análise, chamada síncrona à API do parceiro. As duas chamadas exigem mTLS.',w=1620,h=165,kind='note'),
       node('legend',40,1500,'','Azul: a desenvolver / implantar. Branco: referência. Pontilhado: eventos / análise humana. Contínuo: API síncrona / resposta / persistência.',w=1620,h=40,kind='text')
     ])
     # A ordem das ligações define a posição das portas em cada lado das caixas.
