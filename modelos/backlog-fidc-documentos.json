@@ -1,0 +1,668 @@
+{
+  "title": "Mesa FIDC + pendência documental",
+  "date": "11/11/2026",
+  "effort": 226,
+  "items": [
+    {
+      "id": "F3-01",
+      "type": "Spike",
+      "title": "Definir runtime e região no GCP e o produto do MySQL cloud",
+      "team": "INT",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [],
+      "start": 1,
+      "end": 5
+    },
+    {
+      "id": "F3-02",
+      "type": "Spike",
+      "title": "Definir contratos: API de entrada, identificação FIDC, API do parceiro e eventos",
+      "team": "EST",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [],
+      "start": 1,
+      "end": 5
+    },
+    {
+      "id": "F3-03",
+      "type": "Spike",
+      "title": "Definir o mTLS: autoridade certificadora, emissão, rotação, revogação e vínculo ao parceiro",
+      "team": "INT",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [],
+      "start": 6,
+      "end": 10
+    },
+    {
+      "id": "F3-04",
+      "type": "Spike",
+      "title": "Mapear os pontos de extensão da PCRE-JULG | Argos para a mesa",
+      "team": "MESA",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [],
+      "start": 1,
+      "end": 5
+    },
+    {
+      "id": "F3-05",
+      "type": "Spike",
+      "title": "Definir timeout, retentativas e tratamento de falhas do callback",
+      "team": "EST",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-02"
+      ],
+      "start": 6,
+      "end": 8
+    },
+    {
+      "id": "F3-06",
+      "type": "Task",
+      "title": "Desenho de arquitetura da solução: componentes, integrações, dados, segurança e implantação",
+      "team": "ARQ",
+      "size": "Arquitetura (10)",
+      "duration": 10,
+      "deps": [],
+      "start": 1,
+      "end": 10
+    },
+    {
+      "id": "F3-07",
+      "type": "Task",
+      "title": "Provisionar ambientes no GCP e pipeline de CI/CD da esteira",
+      "team": "INT",
+      "size": "Provisionamento (4)",
+      "duration": 4,
+      "deps": [
+        "F3-01",
+        "F3-06"
+      ],
+      "start": 11,
+      "end": 14
+    },
+    {
+      "id": "F3-08",
+      "type": "Task",
+      "title": "Provisionar o MySQL cloud da esteira: instância, rede, usuários e backup",
+      "team": "INT",
+      "size": "Provisionamento (4)",
+      "duration": 4,
+      "deps": [
+        "F3-01",
+        "F3-06"
+      ],
+      "start": 15,
+      "end": 18
+    },
+    {
+      "id": "F3-09",
+      "type": "Task",
+      "title": "Provisionar tópicos, schemas e ACLs no Confluent Kafka",
+      "team": "INT",
+      "size": "Provisionamento (4)",
+      "duration": 4,
+      "deps": [
+        "F3-02",
+        "F3-06"
+      ],
+      "start": 19,
+      "end": 22
+    },
+    {
+      "id": "F3-10",
+      "type": "Task",
+      "title": "Provisionar a terminação mTLS na entrada e os certificados de homologação",
+      "team": "INT",
+      "size": "Provisionamento (4)",
+      "duration": 4,
+      "deps": [
+        "F3-03",
+        "F3-07"
+      ],
+      "start": 23,
+      "end": 26
+    },
+    {
+      "id": "F3-11",
+      "type": "Task",
+      "title": "Observabilidade: logs, métricas, alertas e rastreio por protocolo",
+      "team": "INT",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-07"
+      ],
+      "start": 27,
+      "end": 29
+    },
+    {
+      "id": "F3-12",
+      "type": "Task",
+      "title": "Testes de carga e resiliência",
+      "team": "INT",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-27",
+        "F3-29"
+      ],
+      "start": 56,
+      "end": 60
+    },
+    {
+      "id": "F3-13",
+      "type": "Task",
+      "title": "Teste ponta a ponta com o parceiro em homologação",
+      "team": "MESA",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-21",
+        "F3-25",
+        "F3-27",
+        "F3-29",
+        "F3-30"
+      ],
+      "start": 56,
+      "end": 60
+    },
+    {
+      "id": "F3-14",
+      "type": "Task",
+      "title": "Plano de implantação, runbook e onboarding do parceiro",
+      "team": "INT",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-11",
+        "F3-29"
+      ],
+      "start": 48,
+      "end": 50
+    },
+    {
+      "id": "F3-15",
+      "type": "Task",
+      "title": "Homologação com o negócio e go-live",
+      "team": "MESA",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-12",
+        "F3-13",
+        "F3-14"
+      ],
+      "start": 61,
+      "end": 63
+    },
+    {
+      "id": "F3-16",
+      "type": "Story",
+      "title": "Receber a solicitação FIDC por API síncrona e validar o payload",
+      "team": "EST",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-02",
+        "F3-07"
+      ],
+      "start": 15,
+      "end": 19
+    },
+    {
+      "id": "F3-17",
+      "type": "Story",
+      "title": "Persistir a solicitação e devolver o protocolo único de aceite",
+      "team": "EST",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-08",
+        "F3-16"
+      ],
+      "start": 20,
+      "end": 22
+    },
+    {
+      "id": "F3-18",
+      "type": "Story",
+      "title": "Controlar os estados: pendente, em análise, derivada, concluída, indisponível e reprocessada",
+      "team": "EST",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-17"
+      ],
+      "start": 23,
+      "end": 27
+    },
+    {
+      "id": "F3-19",
+      "type": "Story",
+      "title": "Solicitar a decisão à PDEC e registrar o resultado automático",
+      "team": "EST",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-18"
+      ],
+      "start": 28,
+      "end": 32
+    },
+    {
+      "id": "F3-20",
+      "type": "Story",
+      "title": "Publicar a derivação para a mesa no Kafka, com outbox",
+      "team": "EST",
+      "size": "Complexa (10)",
+      "duration": 10,
+      "deps": [
+        "F3-09",
+        "F3-19"
+      ],
+      "start": 33,
+      "end": 42
+    },
+    {
+      "id": "F3-21",
+      "type": "Story",
+      "title": "Garantir idempotência: a mesma chave recupera o mesmo protocolo",
+      "team": "EST",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-17"
+      ],
+      "start": 43,
+      "end": 47
+    },
+    {
+      "id": "F3-22",
+      "type": "Story",
+      "title": "Mesa consome as derivações e exibe a fila única FIDC",
+      "team": "MESA",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-04",
+        "F3-09"
+      ],
+      "start": 23,
+      "end": 27
+    },
+    {
+      "id": "F3-23",
+      "type": "Story",
+      "title": "Mesa exibe os dados da solicitação e o resultado da PDEC",
+      "team": "MESA",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-22"
+      ],
+      "start": 28,
+      "end": 32
+    },
+    {
+      "id": "F3-24",
+      "type": "Story",
+      "title": "Mesa registra a decisão manual e a publica no Kafka",
+      "team": "MESA",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-23"
+      ],
+      "start": 33,
+      "end": 37
+    },
+    {
+      "id": "F3-25",
+      "type": "Story",
+      "title": "Controlar os perfis de acesso do analista na mesa",
+      "team": "MESA",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-22"
+      ],
+      "start": 38,
+      "end": 40
+    },
+    {
+      "id": "F3-26",
+      "type": "Story",
+      "title": "Esteira consome a decisão manual e consolida o resultado",
+      "team": "EST",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-20",
+        "F3-24"
+      ],
+      "start": 48,
+      "end": 52
+    },
+    {
+      "id": "F3-27",
+      "type": "Story",
+      "title": "Impedir que resultado duplicado ou tardio sobrescreva decisão finalizada",
+      "team": "EST",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-26"
+      ],
+      "start": 53,
+      "end": 55
+    },
+    {
+      "id": "F3-28",
+      "type": "Story",
+      "title": "Notificar o resultado na API do parceiro, com mTLS",
+      "team": "INT",
+      "size": "Complexa (10)",
+      "duration": 10,
+      "deps": [
+        "F3-05",
+        "F3-10",
+        "F3-19"
+      ],
+      "start": 33,
+      "end": 42
+    },
+    {
+      "id": "F3-29",
+      "type": "Story",
+      "title": "Registrar as tentativas e reprocessar as falhas do callback",
+      "team": "INT",
+      "size": "Média (5)",
+      "duration": 5,
+      "deps": [
+        "F3-28"
+      ],
+      "start": 43,
+      "end": 47
+    },
+    {
+      "id": "F3-30",
+      "type": "Story",
+      "title": "Manter a trilha de auditoria da solicitação",
+      "team": "INT",
+      "size": "Simples (3)",
+      "duration": 3,
+      "deps": [
+        "F3-18"
+      ],
+      "start": 30,
+      "end": 32
+    },
+    {
+      "id": "D3-01",
+      "type": "Spike",
+      "title": "Definir documentos exigidos, motivo, prazo, expiração e reanálise",
+      "team": "EST",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [],
+      "prerequisites": [],
+      "start": 1,
+      "end": 5
+    },
+    {
+      "id": "D3-02",
+      "type": "Spike",
+      "title": "Definir bucket privado, região, retenção, limites e validação de arquivos",
+      "team": "INT",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [],
+      "prerequisites": [],
+      "start": 1,
+      "end": 5
+    },
+    {
+      "id": "D3-03",
+      "type": "Spike",
+      "title": "Definir contratos de pendência, callback e correlação por protocolo e versão",
+      "team": "EST",
+      "duration": 3,
+      "size": "Simples (3)",
+      "deps": [
+        "D3-01"
+      ],
+      "prerequisites": [
+        "F3-02"
+      ],
+      "start": 6,
+      "end": 8
+    },
+    {
+      "id": "D3-04",
+      "type": "Task",
+      "title": "Desenhar a extensão documental: estados, eventos, upload e responsabilidades",
+      "team": "ARQ",
+      "duration": 10,
+      "size": "Arquitetura (10)",
+      "deps": [],
+      "prerequisites": [],
+      "start": 1,
+      "end": 10
+    },
+    {
+      "id": "D3-05",
+      "type": "Task",
+      "title": "Provisionar bucket privado, acessos, notificações e quarentena",
+      "team": "INT",
+      "duration": 4,
+      "size": "Provisionamento (4)",
+      "deps": [
+        "D3-02",
+        "D3-04"
+      ],
+      "prerequisites": [
+        "F3-07"
+      ],
+      "start": 11,
+      "end": 14
+    },
+    {
+      "id": "D3-06",
+      "type": "Story",
+      "title": "Analista pendencia a solicitação com motivo, documentos e prazo",
+      "team": "MESA",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-01",
+        "D3-03",
+        "D3-04"
+      ],
+      "prerequisites": [
+        "F3-23"
+      ],
+      "start": 11,
+      "end": 15
+    },
+    {
+      "id": "D3-07",
+      "type": "Story",
+      "title": "Esteira registra a pendência e notifica o parceiro, que avisa o cliente",
+      "team": "INT",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-06"
+      ],
+      "prerequisites": [
+        "F3-18",
+        "F3-29"
+      ],
+      "start": 16,
+      "end": 20
+    },
+    {
+      "id": "D3-08",
+      "type": "Story",
+      "title": "Autorizar o cliente e emitir URL temporária por documento da pendência",
+      "team": "INT",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-03",
+        "D3-05",
+        "D3-06"
+      ],
+      "prerequisites": [],
+      "start": 21,
+      "end": 25
+    },
+    {
+      "id": "D3-09",
+      "type": "Story",
+      "title": "Cliente consulta a pendência e envia os documentos pelo canal ao bucket",
+      "team": "INT",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-07",
+        "D3-08"
+      ],
+      "prerequisites": [],
+      "start": 26,
+      "end": 30
+    },
+    {
+      "id": "D3-10",
+      "type": "Story",
+      "title": "Validar arquivos recebidos e isolar conteúdo inválido antes da liberação",
+      "team": "EST",
+      "duration": 10,
+      "size": "Complexa (10)",
+      "deps": [
+        "D3-05",
+        "D3-08"
+      ],
+      "prerequisites": [
+        "F3-08"
+      ],
+      "start": 26,
+      "end": 35
+    },
+    {
+      "id": "D3-11",
+      "type": "Story",
+      "title": "Consolidar documentos válidos e publicar conclusão com outbox e idempotência",
+      "team": "EST",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-10"
+      ],
+      "prerequisites": [],
+      "start": 36,
+      "end": 40
+    },
+    {
+      "id": "D3-12",
+      "type": "Story",
+      "title": "Retomar a análise uma única vez, somente para a versão ativa da pendência",
+      "team": "EST",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-11"
+      ],
+      "prerequisites": [
+        "F3-27"
+      ],
+      "start": 41,
+      "end": 45
+    },
+    {
+      "id": "D3-13",
+      "type": "Story",
+      "title": "Analista consulta documentos por acesso autorizado e histórico auditável",
+      "team": "MESA",
+      "duration": 3,
+      "size": "Simples (3)",
+      "deps": [
+        "D3-10"
+      ],
+      "prerequisites": [
+        "F3-25"
+      ],
+      "start": 36,
+      "end": 38
+    },
+    {
+      "id": "D3-14",
+      "type": "Story",
+      "title": "Cliente corrige arquivo rejeitado ou upload expirado preservando o histórico",
+      "team": "INT",
+      "duration": 3,
+      "size": "Simples (3)",
+      "deps": [
+        "D3-09",
+        "D3-10"
+      ],
+      "prerequisites": [],
+      "start": 36,
+      "end": 38
+    },
+    {
+      "id": "D3-15",
+      "type": "Task",
+      "title": "Homologar pendência, upload parcial, acesso indevido, falhas e reanálise",
+      "team": "MESA",
+      "duration": 5,
+      "size": "Média (5)",
+      "deps": [
+        "D3-12",
+        "D3-13",
+        "D3-14"
+      ],
+      "prerequisites": [
+        "F3-15"
+      ],
+      "start": 46,
+      "end": 50
+    },
+    {
+      "id": "D3-16",
+      "type": "Task",
+      "title": "Implantar FIDC com documentos, métricas, alertas, runbook e rollback",
+      "team": "INT",
+      "duration": 3,
+      "size": "Simples (3)",
+      "deps": [
+        "D3-15"
+      ],
+      "prerequisites": [
+        "F3-12",
+        "F3-14"
+      ],
+      "start": 51,
+      "end": 53
+    }
+  ],
+  "groups": [
+    {
+      "name": "Base FIDC",
+      "prefix": "F3",
+      "effort": 145,
+      "finish": 63
+    },
+    {
+      "name": "Pendência documental",
+      "prefix": "D3",
+      "effort": 81,
+      "finish": 53
+    }
+  ]
+}

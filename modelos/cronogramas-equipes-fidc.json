@@ -1,0 +1,2679 @@
+{
+  "date": "11/11/2026",
+  "groups": [
+    {
+      "name": "Base FIDC",
+      "prefix": "F3",
+      "slug": "fidc",
+      "original_count": 30,
+      "plans": [
+        {
+          "developers": 2,
+          "backend": 1,
+          "frontend": 1,
+          "people": 5,
+          "capacity": {
+            "Backend": 1,
+            "Frontend": 1,
+            "Arquiteto": 1,
+            "QA": 1,
+            "ITLead": 1
+          },
+          "finish": 111,
+          "milestone": "M6·S3",
+          "effort": {
+            "Backend": 108,
+            "Frontend": 15,
+            "Arquiteto": 10,
+            "QA": 12
+          },
+          "delivery_effort": 145,
+          "lead_effort": 22.2,
+          "lead_allocation": 0.2,
+          "items": [
+            {
+              "id": "F3-01",
+              "origin": "F3-01",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir runtime e região no GCP e o produto do MySQL cloud",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-02",
+              "origin": "F3-02",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir contratos: API de entrada, identificação FIDC, API do parceiro e eventos",
+              "deps": [],
+              "prerequisites": [],
+              "start": 6,
+              "end": 10,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-03",
+              "origin": "F3-03",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir o mTLS: autoridade certificadora, emissão, rotação, revogação e vínculo ao parceiro",
+              "deps": [],
+              "prerequisites": [],
+              "start": 36,
+              "end": 40,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-04",
+              "origin": "F3-04",
+              "type": "Spike",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Mapear os pontos de extensão da PCRE-JULG | Argos para a mesa",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-05",
+              "origin": "F3-05",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Definir timeout, retentativas e tratamento de falhas do callback",
+              "deps": [
+                "F3-02"
+              ],
+              "prerequisites": [],
+              "start": 53,
+              "end": 55,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-06",
+              "origin": "F3-06",
+              "type": "Task",
+              "role": "Arquiteto",
+              "duration": 10,
+              "title": "Desenho de arquitetura da solução: componentes, integrações, dados, segurança e implantação",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 10,
+              "resource": "Arquiteto 1"
+            },
+            {
+              "id": "F3-07",
+              "origin": "F3-07",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar ambientes no GCP e pipeline de CI/CD da esteira",
+              "deps": [
+                "F3-01",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-08",
+              "origin": "F3-08",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar o MySQL cloud da esteira: instância, rede, usuários e backup",
+              "deps": [
+                "F3-01",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 20,
+              "end": 23,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-09",
+              "origin": "F3-09",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar tópicos, schemas e ACLs no Confluent Kafka",
+              "deps": [
+                "F3-02",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 32,
+              "end": 35,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-10",
+              "origin": "F3-10",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar a terminação mTLS na entrada e os certificados de homologação",
+              "deps": [
+                "F3-03",
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 49,
+              "end": 52,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-11",
+              "origin": "F3-11",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Observabilidade: logs, métricas, alertas e rastreio por protocolo",
+              "deps": [
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 102,
+              "end": 104,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-12",
+              "origin": "F3-12",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Testes de carga e resiliência",
+              "deps": [
+                "F3-27",
+                "F3-29"
+              ],
+              "prerequisites": [],
+              "start": 99,
+              "end": 103,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-13",
+              "origin": "F3-13",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Teste ponta a ponta com o parceiro em homologação",
+              "deps": [
+                "F3-10",
+                "F3-21",
+                "F3-25F",
+                "F3-27",
+                "F3-29",
+                "F3-30"
+              ],
+              "prerequisites": [],
+              "start": 104,
+              "end": 108,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-14",
+              "origin": "F3-14",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Plano de implantação, runbook e onboarding do parceiro",
+              "deps": [
+                "F3-11",
+                "F3-29"
+              ],
+              "prerequisites": [],
+              "start": 105,
+              "end": 107,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-15Q",
+              "origin": "F3-15",
+              "type": "Task",
+              "role": "QA",
+              "duration": 2,
+              "title": "Homologação da base FIDC com o negócio",
+              "deps": [
+                "F3-12",
+                "F3-13",
+                "F3-14"
+              ],
+              "prerequisites": [],
+              "start": 109,
+              "end": 110,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-15B",
+              "origin": "F3-15",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 1,
+              "title": "Implantar a base FIDC após homologação",
+              "deps": [
+                "F3-15Q"
+              ],
+              "prerequisites": [],
+              "start": 111,
+              "end": 111,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-16",
+              "origin": "F3-16",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Receber a solicitação FIDC por API síncrona e validar o payload",
+              "deps": [
+                "F3-02",
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 15,
+              "end": 19,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-17",
+              "origin": "F3-17",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Persistir a solicitação e devolver o protocolo único de aceite",
+              "deps": [
+                "F3-08",
+                "F3-16"
+              ],
+              "prerequisites": [],
+              "start": 24,
+              "end": 26,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-18",
+              "origin": "F3-18",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Controlar os estados: pendente, em análise, derivada, concluída, indisponível e reprocessada",
+              "deps": [
+                "F3-17"
+              ],
+              "prerequisites": [],
+              "start": 27,
+              "end": 31,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-19",
+              "origin": "F3-19",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Solicitar a decisão à PDEC e registrar o resultado automático",
+              "deps": [
+                "F3-18"
+              ],
+              "prerequisites": [],
+              "start": 41,
+              "end": 45,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-20",
+              "origin": "F3-20",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Publicar a derivação para a mesa no Kafka, com outbox",
+              "deps": [
+                "F3-09",
+                "F3-19"
+              ],
+              "prerequisites": [],
+              "start": 56,
+              "end": 65,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-21",
+              "origin": "F3-21",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Garantir idempotência: a mesma chave recupera o mesmo protocolo",
+              "deps": [
+                "F3-17"
+              ],
+              "prerequisites": [],
+              "start": 79,
+              "end": 83,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-22B",
+              "origin": "F3-22",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Consumir derivações e expor API de fila e dados da mesa",
+              "deps": [
+                "F3-04",
+                "F3-09"
+              ],
+              "prerequisites": [],
+              "start": 46,
+              "end": 48,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-22F",
+              "origin": "F3-22",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Exibir a fila única FIDC na PCRE-JULG",
+              "deps": [
+                "F3-22B"
+              ],
+              "prerequisites": [],
+              "start": 49,
+              "end": 50,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-23",
+              "origin": "F3-23",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Mesa exibe os dados da solicitação e o resultado da PDEC",
+              "deps": [
+                "F3-22F"
+              ],
+              "prerequisites": [],
+              "start": 51,
+              "end": 55,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-24B",
+              "origin": "F3-24",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "API de decisão manual e publicação no Kafka",
+              "deps": [
+                "F3-23"
+              ],
+              "prerequisites": [],
+              "start": 76,
+              "end": 78,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-24F",
+              "origin": "F3-24",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela para registrar a decisão manual",
+              "deps": [
+                "F3-24B"
+              ],
+              "prerequisites": [],
+              "start": 79,
+              "end": 80,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-25B",
+              "origin": "F3-25",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 2,
+              "title": "Autorizar os perfis do analista nas APIs",
+              "deps": [
+                "F3-22F"
+              ],
+              "prerequisites": [],
+              "start": 94,
+              "end": 95,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-25F",
+              "origin": "F3-25",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 1,
+              "title": "Aplicar permissões na interface da mesa",
+              "deps": [
+                "F3-25B"
+              ],
+              "prerequisites": [],
+              "start": 96,
+              "end": 96,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-26",
+              "origin": "F3-26",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Esteira consome a decisão manual e consolida o resultado",
+              "deps": [
+                "F3-20",
+                "F3-24F"
+              ],
+              "prerequisites": [],
+              "start": 84,
+              "end": 88,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-27",
+              "origin": "F3-27",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Impedir que resultado duplicado ou tardio sobrescreva decisão finalizada",
+              "deps": [
+                "F3-26"
+              ],
+              "prerequisites": [],
+              "start": 96,
+              "end": 98,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-28",
+              "origin": "F3-28",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Notificar o resultado na API do parceiro, com mTLS",
+              "deps": [
+                "F3-05",
+                "F3-10",
+                "F3-19"
+              ],
+              "prerequisites": [],
+              "start": 66,
+              "end": 75,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-29",
+              "origin": "F3-29",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Registrar as tentativas e reprocessar as falhas do callback",
+              "deps": [
+                "F3-28"
+              ],
+              "prerequisites": [],
+              "start": 89,
+              "end": 93,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-30",
+              "origin": "F3-30",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Manter a trilha de auditoria da solicitação",
+              "deps": [
+                "F3-18"
+              ],
+              "prerequisites": [],
+              "start": 99,
+              "end": 101,
+              "resource": "Backend 1"
+            }
+          ],
+          "management": {
+            "id": "GESTAO",
+            "title": "Planejar, acompanhar riscos, dependências e entregas",
+            "role": "ITLead",
+            "resource": "ITLead 1",
+            "start": 1,
+            "end": 111
+          }
+        },
+        {
+          "developers": 3,
+          "backend": 2,
+          "frontend": 1,
+          "people": 6,
+          "capacity": {
+            "Backend": 2,
+            "Frontend": 1,
+            "Arquiteto": 1,
+            "QA": 1,
+            "ITLead": 1
+          },
+          "finish": 64,
+          "milestone": "M4·S1",
+          "effort": {
+            "Backend": 108,
+            "Frontend": 15,
+            "Arquiteto": 10,
+            "QA": 12
+          },
+          "delivery_effort": 145,
+          "lead_effort": 12.8,
+          "lead_allocation": 0.2,
+          "items": [
+            {
+              "id": "F3-01",
+              "origin": "F3-01",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir runtime e região no GCP e o produto do MySQL cloud",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-02",
+              "origin": "F3-02",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir contratos: API de entrada, identificação FIDC, API do parceiro e eventos",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-03",
+              "origin": "F3-03",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir o mTLS: autoridade certificadora, emissão, rotação, revogação e vínculo ao parceiro",
+              "deps": [],
+              "prerequisites": [],
+              "start": 6,
+              "end": 10,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-04",
+              "origin": "F3-04",
+              "type": "Spike",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Mapear os pontos de extensão da PCRE-JULG | Argos para a mesa",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-05",
+              "origin": "F3-05",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Definir timeout, retentativas e tratamento de falhas do callback",
+              "deps": [
+                "F3-02"
+              ],
+              "prerequisites": [],
+              "start": 6,
+              "end": 8,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-06",
+              "origin": "F3-06",
+              "type": "Task",
+              "role": "Arquiteto",
+              "duration": 10,
+              "title": "Desenho de arquitetura da solução: componentes, integrações, dados, segurança e implantação",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 10,
+              "resource": "Arquiteto 1"
+            },
+            {
+              "id": "F3-07",
+              "origin": "F3-07",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar ambientes no GCP e pipeline de CI/CD da esteira",
+              "deps": [
+                "F3-01",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-08",
+              "origin": "F3-08",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar o MySQL cloud da esteira: instância, rede, usuários e backup",
+              "deps": [
+                "F3-01",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-09",
+              "origin": "F3-09",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar tópicos, schemas e ACLs no Confluent Kafka",
+              "deps": [
+                "F3-02",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 15,
+              "end": 18,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-10",
+              "origin": "F3-10",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar a terminação mTLS na entrada e os certificados de homologação",
+              "deps": [
+                "F3-03",
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 22,
+              "end": 25,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-11",
+              "origin": "F3-11",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Observabilidade: logs, métricas, alertas e rastreio por protocolo",
+              "deps": [
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 52,
+              "end": 54,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-12",
+              "origin": "F3-12",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Testes de carga e resiliência",
+              "deps": [
+                "F3-27",
+                "F3-29"
+              ],
+              "prerequisites": [],
+              "start": 52,
+              "end": 56,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-13",
+              "origin": "F3-13",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Teste ponta a ponta com o parceiro em homologação",
+              "deps": [
+                "F3-10",
+                "F3-21",
+                "F3-25F",
+                "F3-27",
+                "F3-29",
+                "F3-30"
+              ],
+              "prerequisites": [],
+              "start": 57,
+              "end": 61,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-14",
+              "origin": "F3-14",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Plano de implantação, runbook e onboarding do parceiro",
+              "deps": [
+                "F3-11",
+                "F3-29"
+              ],
+              "prerequisites": [],
+              "start": 55,
+              "end": 57,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-15Q",
+              "origin": "F3-15",
+              "type": "Task",
+              "role": "QA",
+              "duration": 2,
+              "title": "Homologação da base FIDC com o negócio",
+              "deps": [
+                "F3-12",
+                "F3-13",
+                "F3-14"
+              ],
+              "prerequisites": [],
+              "start": 62,
+              "end": 63,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-15B",
+              "origin": "F3-15",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 1,
+              "title": "Implantar a base FIDC após homologação",
+              "deps": [
+                "F3-15Q"
+              ],
+              "prerequisites": [],
+              "start": 64,
+              "end": 64,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-16",
+              "origin": "F3-16",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Receber a solicitação FIDC por API síncrona e validar o payload",
+              "deps": [
+                "F3-02",
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 15,
+              "end": 19,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-17",
+              "origin": "F3-17",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Persistir a solicitação e devolver o protocolo único de aceite",
+              "deps": [
+                "F3-08",
+                "F3-16"
+              ],
+              "prerequisites": [],
+              "start": 20,
+              "end": 22,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-18",
+              "origin": "F3-18",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Controlar os estados: pendente, em análise, derivada, concluída, indisponível e reprocessada",
+              "deps": [
+                "F3-17"
+              ],
+              "prerequisites": [],
+              "start": 23,
+              "end": 27,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-19",
+              "origin": "F3-19",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Solicitar a decisão à PDEC e registrar o resultado automático",
+              "deps": [
+                "F3-18"
+              ],
+              "prerequisites": [],
+              "start": 28,
+              "end": 32,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-20",
+              "origin": "F3-20",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Publicar a derivação para a mesa no Kafka, com outbox",
+              "deps": [
+                "F3-09",
+                "F3-19"
+              ],
+              "prerequisites": [],
+              "start": 33,
+              "end": 42,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-21",
+              "origin": "F3-21",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Garantir idempotência: a mesma chave recupera o mesmo protocolo",
+              "deps": [
+                "F3-17"
+              ],
+              "prerequisites": [],
+              "start": 26,
+              "end": 30,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-22B",
+              "origin": "F3-22",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Consumir derivações e expor API de fila e dados da mesa",
+              "deps": [
+                "F3-04",
+                "F3-09"
+              ],
+              "prerequisites": [],
+              "start": 19,
+              "end": 21,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-22F",
+              "origin": "F3-22",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Exibir a fila única FIDC na PCRE-JULG",
+              "deps": [
+                "F3-22B"
+              ],
+              "prerequisites": [],
+              "start": 22,
+              "end": 23,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-23",
+              "origin": "F3-23",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Mesa exibe os dados da solicitação e o resultado da PDEC",
+              "deps": [
+                "F3-22F"
+              ],
+              "prerequisites": [],
+              "start": 24,
+              "end": 28,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-24B",
+              "origin": "F3-24",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "API de decisão manual e publicação no Kafka",
+              "deps": [
+                "F3-23"
+              ],
+              "prerequisites": [],
+              "start": 31,
+              "end": 33,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-24F",
+              "origin": "F3-24",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela para registrar a decisão manual",
+              "deps": [
+                "F3-24B"
+              ],
+              "prerequisites": [],
+              "start": 34,
+              "end": 35,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-25B",
+              "origin": "F3-25",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 2,
+              "title": "Autorizar os perfis do analista nas APIs",
+              "deps": [
+                "F3-22F"
+              ],
+              "prerequisites": [],
+              "start": 48,
+              "end": 49,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-25F",
+              "origin": "F3-25",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 1,
+              "title": "Aplicar permissões na interface da mesa",
+              "deps": [
+                "F3-25B"
+              ],
+              "prerequisites": [],
+              "start": 50,
+              "end": 50,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-26",
+              "origin": "F3-26",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Esteira consome a decisão manual e consolida o resultado",
+              "deps": [
+                "F3-20",
+                "F3-24F"
+              ],
+              "prerequisites": [],
+              "start": 43,
+              "end": 47,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-27",
+              "origin": "F3-27",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Impedir que resultado duplicado ou tardio sobrescreva decisão finalizada",
+              "deps": [
+                "F3-26"
+              ],
+              "prerequisites": [],
+              "start": 49,
+              "end": 51,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-28",
+              "origin": "F3-28",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Notificar o resultado na API do parceiro, com mTLS",
+              "deps": [
+                "F3-05",
+                "F3-10",
+                "F3-19"
+              ],
+              "prerequisites": [],
+              "start": 34,
+              "end": 43,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-29",
+              "origin": "F3-29",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Registrar as tentativas e reprocessar as falhas do callback",
+              "deps": [
+                "F3-28"
+              ],
+              "prerequisites": [],
+              "start": 44,
+              "end": 48,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-30",
+              "origin": "F3-30",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Manter a trilha de auditoria da solicitação",
+              "deps": [
+                "F3-18"
+              ],
+              "prerequisites": [],
+              "start": 50,
+              "end": 52,
+              "resource": "Backend 1"
+            }
+          ],
+          "management": {
+            "id": "GESTAO",
+            "title": "Planejar, acompanhar riscos, dependências e entregas",
+            "role": "ITLead",
+            "resource": "ITLead 1",
+            "start": 1,
+            "end": 64
+          }
+        },
+        {
+          "developers": 4,
+          "backend": 3,
+          "frontend": 1,
+          "people": 7,
+          "capacity": {
+            "Backend": 3,
+            "Frontend": 1,
+            "Arquiteto": 1,
+            "QA": 1,
+            "ITLead": 1
+          },
+          "finish": 63,
+          "milestone": "M4·S1",
+          "effort": {
+            "Backend": 108,
+            "Frontend": 15,
+            "Arquiteto": 10,
+            "QA": 12
+          },
+          "delivery_effort": 145,
+          "lead_effort": 12.6,
+          "lead_allocation": 0.2,
+          "items": [
+            {
+              "id": "F3-01",
+              "origin": "F3-01",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir runtime e região no GCP e o produto do MySQL cloud",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-02",
+              "origin": "F3-02",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir contratos: API de entrada, identificação FIDC, API do parceiro e eventos",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-03",
+              "origin": "F3-03",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir o mTLS: autoridade certificadora, emissão, rotação, revogação e vínculo ao parceiro",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-04",
+              "origin": "F3-04",
+              "type": "Spike",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Mapear os pontos de extensão da PCRE-JULG | Argos para a mesa",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-05",
+              "origin": "F3-05",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Definir timeout, retentativas e tratamento de falhas do callback",
+              "deps": [
+                "F3-02"
+              ],
+              "prerequisites": [],
+              "start": 6,
+              "end": 8,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-06",
+              "origin": "F3-06",
+              "type": "Task",
+              "role": "Arquiteto",
+              "duration": 10,
+              "title": "Desenho de arquitetura da solução: componentes, integrações, dados, segurança e implantação",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 10,
+              "resource": "Arquiteto 1"
+            },
+            {
+              "id": "F3-07",
+              "origin": "F3-07",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar ambientes no GCP e pipeline de CI/CD da esteira",
+              "deps": [
+                "F3-01",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-08",
+              "origin": "F3-08",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar o MySQL cloud da esteira: instância, rede, usuários e backup",
+              "deps": [
+                "F3-01",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-09",
+              "origin": "F3-09",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar tópicos, schemas e ACLs no Confluent Kafka",
+              "deps": [
+                "F3-02",
+                "F3-06"
+              ],
+              "prerequisites": [],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-10",
+              "origin": "F3-10",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar a terminação mTLS na entrada e os certificados de homologação",
+              "deps": [
+                "F3-03",
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 15,
+              "end": 18,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-11",
+              "origin": "F3-11",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Observabilidade: logs, métricas, alertas e rastreio por protocolo",
+              "deps": [
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 18,
+              "end": 20,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-12",
+              "origin": "F3-12",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Testes de carga e resiliência",
+              "deps": [
+                "F3-27",
+                "F3-29"
+              ],
+              "prerequisites": [],
+              "start": 51,
+              "end": 55,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-13",
+              "origin": "F3-13",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Teste ponta a ponta com o parceiro em homologação",
+              "deps": [
+                "F3-10",
+                "F3-21",
+                "F3-25F",
+                "F3-27",
+                "F3-29",
+                "F3-30"
+              ],
+              "prerequisites": [],
+              "start": 56,
+              "end": 60,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-14",
+              "origin": "F3-14",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Plano de implantação, runbook e onboarding do parceiro",
+              "deps": [
+                "F3-11",
+                "F3-29"
+              ],
+              "prerequisites": [],
+              "start": 48,
+              "end": 50,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-15Q",
+              "origin": "F3-15",
+              "type": "Task",
+              "role": "QA",
+              "duration": 2,
+              "title": "Homologação da base FIDC com o negócio",
+              "deps": [
+                "F3-12",
+                "F3-13",
+                "F3-14"
+              ],
+              "prerequisites": [],
+              "start": 61,
+              "end": 62,
+              "resource": "QA 1"
+            },
+            {
+              "id": "F3-15B",
+              "origin": "F3-15",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 1,
+              "title": "Implantar a base FIDC após homologação",
+              "deps": [
+                "F3-15Q"
+              ],
+              "prerequisites": [],
+              "start": 63,
+              "end": 63,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-16",
+              "origin": "F3-16",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Receber a solicitação FIDC por API síncrona e validar o payload",
+              "deps": [
+                "F3-02",
+                "F3-07"
+              ],
+              "prerequisites": [],
+              "start": 15,
+              "end": 19,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-17",
+              "origin": "F3-17",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Persistir a solicitação e devolver o protocolo único de aceite",
+              "deps": [
+                "F3-08",
+                "F3-16"
+              ],
+              "prerequisites": [],
+              "start": 20,
+              "end": 22,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-18",
+              "origin": "F3-18",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Controlar os estados: pendente, em análise, derivada, concluída, indisponível e reprocessada",
+              "deps": [
+                "F3-17"
+              ],
+              "prerequisites": [],
+              "start": 23,
+              "end": 27,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-19",
+              "origin": "F3-19",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Solicitar a decisão à PDEC e registrar o resultado automático",
+              "deps": [
+                "F3-18"
+              ],
+              "prerequisites": [],
+              "start": 28,
+              "end": 32,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-20",
+              "origin": "F3-20",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Publicar a derivação para a mesa no Kafka, com outbox",
+              "deps": [
+                "F3-09",
+                "F3-19"
+              ],
+              "prerequisites": [],
+              "start": 33,
+              "end": 42,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-21",
+              "origin": "F3-21",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Garantir idempotência: a mesma chave recupera o mesmo protocolo",
+              "deps": [
+                "F3-17"
+              ],
+              "prerequisites": [],
+              "start": 23,
+              "end": 27,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-22B",
+              "origin": "F3-22",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Consumir derivações e expor API de fila e dados da mesa",
+              "deps": [
+                "F3-04",
+                "F3-09"
+              ],
+              "prerequisites": [],
+              "start": 15,
+              "end": 17,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-22F",
+              "origin": "F3-22",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Exibir a fila única FIDC na PCRE-JULG",
+              "deps": [
+                "F3-22B"
+              ],
+              "prerequisites": [],
+              "start": 18,
+              "end": 19,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-23",
+              "origin": "F3-23",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Mesa exibe os dados da solicitação e o resultado da PDEC",
+              "deps": [
+                "F3-22F"
+              ],
+              "prerequisites": [],
+              "start": 20,
+              "end": 24,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-24B",
+              "origin": "F3-24",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "API de decisão manual e publicação no Kafka",
+              "deps": [
+                "F3-23"
+              ],
+              "prerequisites": [],
+              "start": 25,
+              "end": 27,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-24F",
+              "origin": "F3-24",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela para registrar a decisão manual",
+              "deps": [
+                "F3-24B"
+              ],
+              "prerequisites": [],
+              "start": 28,
+              "end": 29,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-25B",
+              "origin": "F3-25",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 2,
+              "title": "Autorizar os perfis do analista nas APIs",
+              "deps": [
+                "F3-22F"
+              ],
+              "prerequisites": [],
+              "start": 20,
+              "end": 21,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-25F",
+              "origin": "F3-25",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 1,
+              "title": "Aplicar permissões na interface da mesa",
+              "deps": [
+                "F3-25B"
+              ],
+              "prerequisites": [],
+              "start": 25,
+              "end": 25,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "F3-26",
+              "origin": "F3-26",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Esteira consome a decisão manual e consolida o resultado",
+              "deps": [
+                "F3-20",
+                "F3-24F"
+              ],
+              "prerequisites": [],
+              "start": 43,
+              "end": 47,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "F3-27",
+              "origin": "F3-27",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Impedir que resultado duplicado ou tardio sobrescreva decisão finalizada",
+              "deps": [
+                "F3-26"
+              ],
+              "prerequisites": [],
+              "start": 48,
+              "end": 50,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "F3-28",
+              "origin": "F3-28",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Notificar o resultado na API do parceiro, com mTLS",
+              "deps": [
+                "F3-05",
+                "F3-10",
+                "F3-19"
+              ],
+              "prerequisites": [],
+              "start": 33,
+              "end": 42,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-29",
+              "origin": "F3-29",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Registrar as tentativas e reprocessar as falhas do callback",
+              "deps": [
+                "F3-28"
+              ],
+              "prerequisites": [],
+              "start": 43,
+              "end": 47,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "F3-30",
+              "origin": "F3-30",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Manter a trilha de auditoria da solicitação",
+              "deps": [
+                "F3-18"
+              ],
+              "prerequisites": [],
+              "start": 28,
+              "end": 30,
+              "resource": "Backend 2"
+            }
+          ],
+          "management": {
+            "id": "GESTAO",
+            "title": "Planejar, acompanhar riscos, dependências e entregas",
+            "role": "ITLead",
+            "resource": "ITLead 1",
+            "start": 1,
+            "end": 63
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pendência documental",
+      "prefix": "D3",
+      "slug": "pendencia-documental",
+      "original_count": 16,
+      "plans": [
+        {
+          "developers": 2,
+          "backend": 1,
+          "frontend": 1,
+          "people": 5,
+          "capacity": {
+            "Backend": 1,
+            "Frontend": 1,
+            "Arquiteto": 1,
+            "QA": 1,
+            "ITLead": 1
+          },
+          "finish": 61,
+          "milestone": "M4·S1",
+          "effort": {
+            "Backend": 54,
+            "Arquiteto": 10,
+            "Frontend": 12,
+            "QA": 5
+          },
+          "delivery_effort": 81,
+          "lead_effort": 12.2,
+          "lead_allocation": 0.2,
+          "items": [
+            {
+              "id": "D3-01",
+              "origin": "D3-01",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir documentos exigidos, motivo, prazo, expiração e reanálise",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-02",
+              "origin": "D3-02",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir bucket privado, região, retenção, limites e validação de arquivos",
+              "deps": [],
+              "prerequisites": [],
+              "start": 6,
+              "end": 10,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-03",
+              "origin": "D3-03",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Definir contratos de pendência, callback e correlação por protocolo e versão",
+              "deps": [
+                "D3-01"
+              ],
+              "prerequisites": [
+                "F3-02"
+              ],
+              "start": 11,
+              "end": 13,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-04",
+              "origin": "D3-04",
+              "type": "Task",
+              "role": "Arquiteto",
+              "duration": 10,
+              "title": "Desenhar a extensão documental: estados, eventos, upload e responsabilidades",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 10,
+              "resource": "Arquiteto 1"
+            },
+            {
+              "id": "D3-05",
+              "origin": "D3-05",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar bucket privado, acessos, notificações e quarentena",
+              "deps": [
+                "D3-02",
+                "D3-04"
+              ],
+              "prerequisites": [
+                "F3-07"
+              ],
+              "start": 17,
+              "end": 20,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-06B",
+              "origin": "D3-06",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "API de pendência: motivo, documentos, prazo e estado",
+              "deps": [
+                "D3-01",
+                "D3-03",
+                "D3-04"
+              ],
+              "prerequisites": [
+                "F3-23"
+              ],
+              "start": 14,
+              "end": 16,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-06F",
+              "origin": "D3-06",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela para o analista pendenciar a solicitação",
+              "deps": [
+                "D3-06B"
+              ],
+              "prerequisites": [
+                "F3-23"
+              ],
+              "start": 17,
+              "end": 18,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-07",
+              "origin": "D3-07",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Esteira registra a pendência e notifica o parceiro, que avisa o cliente",
+              "deps": [
+                "D3-06F"
+              ],
+              "prerequisites": [
+                "F3-18",
+                "F3-29"
+              ],
+              "start": 36,
+              "end": 40,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-08",
+              "origin": "D3-08",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Autorizar o cliente e emitir URL temporária por documento da pendência",
+              "deps": [
+                "D3-03",
+                "D3-05",
+                "D3-06F"
+              ],
+              "prerequisites": [],
+              "start": 21,
+              "end": 25,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-09",
+              "origin": "D3-09",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Cliente consulta a pendência e envia os documentos pelo canal ao bucket",
+              "deps": [
+                "D3-07",
+                "D3-08"
+              ],
+              "prerequisites": [],
+              "start": 41,
+              "end": 45,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-10",
+              "origin": "D3-10",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Validar arquivos recebidos e isolar conteúdo inválido antes da liberação",
+              "deps": [
+                "D3-05",
+                "D3-08"
+              ],
+              "prerequisites": [
+                "F3-08"
+              ],
+              "start": 26,
+              "end": 35,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-11",
+              "origin": "D3-11",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Consolidar documentos válidos e publicar conclusão com outbox e idempotência",
+              "deps": [
+                "D3-10"
+              ],
+              "prerequisites": [],
+              "start": 41,
+              "end": 45,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-12",
+              "origin": "D3-12",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Retomar a análise uma única vez, somente para a versão ativa da pendência",
+              "deps": [
+                "D3-11"
+              ],
+              "prerequisites": [
+                "F3-27"
+              ],
+              "start": 46,
+              "end": 50,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-13B",
+              "origin": "D3-13",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 1,
+              "title": "API autorizada para leitura e auditoria de documentos",
+              "deps": [
+                "D3-10"
+              ],
+              "prerequisites": [
+                "F3-25"
+              ],
+              "start": 51,
+              "end": 51,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-13F",
+              "origin": "D3-13",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela de documentos e histórico para o analista",
+              "deps": [
+                "D3-13B"
+              ],
+              "prerequisites": [
+                "F3-25"
+              ],
+              "start": 52,
+              "end": 53,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-14",
+              "origin": "D3-14",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 3,
+              "title": "Cliente corrige arquivo rejeitado ou upload expirado preservando o histórico",
+              "deps": [
+                "D3-09",
+                "D3-10"
+              ],
+              "prerequisites": [],
+              "start": 46,
+              "end": 48,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-15",
+              "origin": "D3-15",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Homologar pendência, upload parcial, acesso indevido, falhas e reanálise",
+              "deps": [
+                "D3-12",
+                "D3-13F",
+                "D3-14"
+              ],
+              "prerequisites": [
+                "F3-15"
+              ],
+              "start": 54,
+              "end": 58,
+              "resource": "QA 1"
+            },
+            {
+              "id": "D3-16",
+              "origin": "D3-16",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Implantar FIDC com documentos, métricas, alertas, runbook e rollback",
+              "deps": [
+                "D3-15"
+              ],
+              "prerequisites": [
+                "F3-12",
+                "F3-14"
+              ],
+              "start": 59,
+              "end": 61,
+              "resource": "Backend 1"
+            }
+          ],
+          "management": {
+            "id": "GESTAO",
+            "title": "Planejar, acompanhar riscos, dependências e entregas",
+            "role": "ITLead",
+            "resource": "ITLead 1",
+            "start": 1,
+            "end": 61
+          }
+        },
+        {
+          "developers": 3,
+          "backend": 2,
+          "frontend": 1,
+          "people": 6,
+          "capacity": {
+            "Backend": 2,
+            "Frontend": 1,
+            "Arquiteto": 1,
+            "QA": 1,
+            "ITLead": 1
+          },
+          "finish": 48,
+          "milestone": "M3·S2",
+          "effort": {
+            "Backend": 54,
+            "Arquiteto": 10,
+            "Frontend": 12,
+            "QA": 5
+          },
+          "delivery_effort": 81,
+          "lead_effort": 9.6,
+          "lead_allocation": 0.2,
+          "items": [
+            {
+              "id": "D3-01",
+              "origin": "D3-01",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir documentos exigidos, motivo, prazo, expiração e reanálise",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-02",
+              "origin": "D3-02",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir bucket privado, região, retenção, limites e validação de arquivos",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-03",
+              "origin": "D3-03",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Definir contratos de pendência, callback e correlação por protocolo e versão",
+              "deps": [
+                "D3-01"
+              ],
+              "prerequisites": [
+                "F3-02"
+              ],
+              "start": 6,
+              "end": 8,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-04",
+              "origin": "D3-04",
+              "type": "Task",
+              "role": "Arquiteto",
+              "duration": 10,
+              "title": "Desenhar a extensão documental: estados, eventos, upload e responsabilidades",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 10,
+              "resource": "Arquiteto 1"
+            },
+            {
+              "id": "D3-05",
+              "origin": "D3-05",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar bucket privado, acessos, notificações e quarentena",
+              "deps": [
+                "D3-02",
+                "D3-04"
+              ],
+              "prerequisites": [
+                "F3-07"
+              ],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-06B",
+              "origin": "D3-06",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "API de pendência: motivo, documentos, prazo e estado",
+              "deps": [
+                "D3-01",
+                "D3-03",
+                "D3-04"
+              ],
+              "prerequisites": [
+                "F3-23"
+              ],
+              "start": 11,
+              "end": 13,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-06F",
+              "origin": "D3-06",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela para o analista pendenciar a solicitação",
+              "deps": [
+                "D3-06B"
+              ],
+              "prerequisites": [
+                "F3-23"
+              ],
+              "start": 14,
+              "end": 15,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-07",
+              "origin": "D3-07",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Esteira registra a pendência e notifica o parceiro, que avisa o cliente",
+              "deps": [
+                "D3-06F"
+              ],
+              "prerequisites": [
+                "F3-18",
+                "F3-29"
+              ],
+              "start": 16,
+              "end": 20,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-08",
+              "origin": "D3-08",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Autorizar o cliente e emitir URL temporária por documento da pendência",
+              "deps": [
+                "D3-03",
+                "D3-05",
+                "D3-06F"
+              ],
+              "prerequisites": [],
+              "start": 16,
+              "end": 20,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-09",
+              "origin": "D3-09",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Cliente consulta a pendência e envia os documentos pelo canal ao bucket",
+              "deps": [
+                "D3-07",
+                "D3-08"
+              ],
+              "prerequisites": [],
+              "start": 21,
+              "end": 25,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-10",
+              "origin": "D3-10",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Validar arquivos recebidos e isolar conteúdo inválido antes da liberação",
+              "deps": [
+                "D3-05",
+                "D3-08"
+              ],
+              "prerequisites": [
+                "F3-08"
+              ],
+              "start": 21,
+              "end": 30,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-11",
+              "origin": "D3-11",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Consolidar documentos válidos e publicar conclusão com outbox e idempotência",
+              "deps": [
+                "D3-10"
+              ],
+              "prerequisites": [],
+              "start": 31,
+              "end": 35,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-12",
+              "origin": "D3-12",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Retomar a análise uma única vez, somente para a versão ativa da pendência",
+              "deps": [
+                "D3-11"
+              ],
+              "prerequisites": [
+                "F3-27"
+              ],
+              "start": 36,
+              "end": 40,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-13B",
+              "origin": "D3-13",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 1,
+              "title": "API autorizada para leitura e auditoria de documentos",
+              "deps": [
+                "D3-10"
+              ],
+              "prerequisites": [
+                "F3-25"
+              ],
+              "start": 31,
+              "end": 31,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-13F",
+              "origin": "D3-13",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela de documentos e histórico para o analista",
+              "deps": [
+                "D3-13B"
+              ],
+              "prerequisites": [
+                "F3-25"
+              ],
+              "start": 34,
+              "end": 35,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-14",
+              "origin": "D3-14",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 3,
+              "title": "Cliente corrige arquivo rejeitado ou upload expirado preservando o histórico",
+              "deps": [
+                "D3-09",
+                "D3-10"
+              ],
+              "prerequisites": [],
+              "start": 31,
+              "end": 33,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-15",
+              "origin": "D3-15",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Homologar pendência, upload parcial, acesso indevido, falhas e reanálise",
+              "deps": [
+                "D3-12",
+                "D3-13F",
+                "D3-14"
+              ],
+              "prerequisites": [
+                "F3-15"
+              ],
+              "start": 41,
+              "end": 45,
+              "resource": "QA 1"
+            },
+            {
+              "id": "D3-16",
+              "origin": "D3-16",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Implantar FIDC com documentos, métricas, alertas, runbook e rollback",
+              "deps": [
+                "D3-15"
+              ],
+              "prerequisites": [
+                "F3-12",
+                "F3-14"
+              ],
+              "start": 46,
+              "end": 48,
+              "resource": "Backend 2"
+            }
+          ],
+          "management": {
+            "id": "GESTAO",
+            "title": "Planejar, acompanhar riscos, dependências e entregas",
+            "role": "ITLead",
+            "resource": "ITLead 1",
+            "start": 1,
+            "end": 48
+          }
+        },
+        {
+          "developers": 4,
+          "backend": 3,
+          "frontend": 1,
+          "people": 7,
+          "capacity": {
+            "Backend": 3,
+            "Frontend": 1,
+            "Arquiteto": 1,
+            "QA": 1,
+            "ITLead": 1
+          },
+          "finish": 48,
+          "milestone": "M3·S2",
+          "effort": {
+            "Backend": 54,
+            "Arquiteto": 10,
+            "Frontend": 12,
+            "QA": 5
+          },
+          "delivery_effort": 81,
+          "lead_effort": 9.6,
+          "lead_allocation": 0.2,
+          "items": [
+            {
+              "id": "D3-01",
+              "origin": "D3-01",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir documentos exigidos, motivo, prazo, expiração e reanálise",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-02",
+              "origin": "D3-02",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Definir bucket privado, região, retenção, limites e validação de arquivos",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 5,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-03",
+              "origin": "D3-03",
+              "type": "Spike",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Definir contratos de pendência, callback e correlação por protocolo e versão",
+              "deps": [
+                "D3-01"
+              ],
+              "prerequisites": [
+                "F3-02"
+              ],
+              "start": 6,
+              "end": 8,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "D3-04",
+              "origin": "D3-04",
+              "type": "Task",
+              "role": "Arquiteto",
+              "duration": 10,
+              "title": "Desenhar a extensão documental: estados, eventos, upload e responsabilidades",
+              "deps": [],
+              "prerequisites": [],
+              "start": 1,
+              "end": 10,
+              "resource": "Arquiteto 1"
+            },
+            {
+              "id": "D3-05",
+              "origin": "D3-05",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 4,
+              "title": "Provisionar bucket privado, acessos, notificações e quarentena",
+              "deps": [
+                "D3-02",
+                "D3-04"
+              ],
+              "prerequisites": [
+                "F3-07"
+              ],
+              "start": 11,
+              "end": 14,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-06B",
+              "origin": "D3-06",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 3,
+              "title": "API de pendência: motivo, documentos, prazo e estado",
+              "deps": [
+                "D3-01",
+                "D3-03",
+                "D3-04"
+              ],
+              "prerequisites": [
+                "F3-23"
+              ],
+              "start": 11,
+              "end": 13,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-06F",
+              "origin": "D3-06",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela para o analista pendenciar a solicitação",
+              "deps": [
+                "D3-06B"
+              ],
+              "prerequisites": [
+                "F3-23"
+              ],
+              "start": 14,
+              "end": 15,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-07",
+              "origin": "D3-07",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Esteira registra a pendência e notifica o parceiro, que avisa o cliente",
+              "deps": [
+                "D3-06F"
+              ],
+              "prerequisites": [
+                "F3-18",
+                "F3-29"
+              ],
+              "start": 16,
+              "end": 20,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-08",
+              "origin": "D3-08",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Autorizar o cliente e emitir URL temporária por documento da pendência",
+              "deps": [
+                "D3-03",
+                "D3-05",
+                "D3-06F"
+              ],
+              "prerequisites": [],
+              "start": 16,
+              "end": 20,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "D3-09",
+              "origin": "D3-09",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 5,
+              "title": "Cliente consulta a pendência e envia os documentos pelo canal ao bucket",
+              "deps": [
+                "D3-07",
+                "D3-08"
+              ],
+              "prerequisites": [],
+              "start": 21,
+              "end": 25,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-10",
+              "origin": "D3-10",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 10,
+              "title": "Validar arquivos recebidos e isolar conteúdo inválido antes da liberação",
+              "deps": [
+                "D3-05",
+                "D3-08"
+              ],
+              "prerequisites": [
+                "F3-08"
+              ],
+              "start": 21,
+              "end": 30,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-11",
+              "origin": "D3-11",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Consolidar documentos válidos e publicar conclusão com outbox e idempotência",
+              "deps": [
+                "D3-10"
+              ],
+              "prerequisites": [],
+              "start": 31,
+              "end": 35,
+              "resource": "Backend 1"
+            },
+            {
+              "id": "D3-12",
+              "origin": "D3-12",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 5,
+              "title": "Retomar a análise uma única vez, somente para a versão ativa da pendência",
+              "deps": [
+                "D3-11"
+              ],
+              "prerequisites": [
+                "F3-27"
+              ],
+              "start": 36,
+              "end": 40,
+              "resource": "Backend 2"
+            },
+            {
+              "id": "D3-13B",
+              "origin": "D3-13",
+              "type": "Story",
+              "role": "Backend",
+              "duration": 1,
+              "title": "API autorizada para leitura e auditoria de documentos",
+              "deps": [
+                "D3-10"
+              ],
+              "prerequisites": [
+                "F3-25"
+              ],
+              "start": 31,
+              "end": 31,
+              "resource": "Backend 3"
+            },
+            {
+              "id": "D3-13F",
+              "origin": "D3-13",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 2,
+              "title": "Tela de documentos e histórico para o analista",
+              "deps": [
+                "D3-13B"
+              ],
+              "prerequisites": [
+                "F3-25"
+              ],
+              "start": 34,
+              "end": 35,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-14",
+              "origin": "D3-14",
+              "type": "Story",
+              "role": "Frontend",
+              "duration": 3,
+              "title": "Cliente corrige arquivo rejeitado ou upload expirado preservando o histórico",
+              "deps": [
+                "D3-09",
+                "D3-10"
+              ],
+              "prerequisites": [],
+              "start": 31,
+              "end": 33,
+              "resource": "Frontend 1"
+            },
+            {
+              "id": "D3-15",
+              "origin": "D3-15",
+              "type": "Task",
+              "role": "QA",
+              "duration": 5,
+              "title": "Homologar pendência, upload parcial, acesso indevido, falhas e reanálise",
+              "deps": [
+                "D3-12",
+                "D3-13F",
+                "D3-14"
+              ],
+              "prerequisites": [
+                "F3-15"
+              ],
+              "start": 41,
+              "end": 45,
+              "resource": "QA 1"
+            },
+            {
+              "id": "D3-16",
+              "origin": "D3-16",
+              "type": "Task",
+              "role": "Backend",
+              "duration": 3,
+              "title": "Implantar FIDC com documentos, métricas, alertas, runbook e rollback",
+              "deps": [
+                "D3-15"
+              ],
+              "prerequisites": [
+                "F3-12",
+                "F3-14"
+              ],
+              "start": 46,
+              "end": 48,
+              "resource": "Backend 3"
+            }
+          ],
+          "management": {
+            "id": "GESTAO",
+            "title": "Planejar, acompanhar riscos, dependências e entregas",
+            "role": "ITLead",
+            "resource": "ITLead 1",
+            "start": 1,
+            "end": 48
+          }
+        }
+      ]
+    }
+  ]
+}
