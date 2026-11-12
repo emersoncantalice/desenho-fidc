@@ -178,7 +178,7 @@ y = 128
 for n, (title, body, due, dated) in enumerate([
     ('Definições de negócio',
      'A REF deve contemplar as regras de simulação e análise de crédito. Não entra derivação inicialmente.',
-     '20/11/2026', True),
+     '19/11/2026', True),
     ('Pessoas e ambientes', 'Confirmar realocação da equipe.', 'Em aberto', False),
     ('Parceiro e implantação',
      'Certificado mTLS enviado pelo parceiro. Alinhar homologação, aceite e implantação para 11/01.',
@@ -195,6 +195,7 @@ for n, (title, body, due, dated) in enumerate([
 
 ATT_Y = 280
 assert y <= ATT_Y + 1, y
+TRADE_Y = 652  # título dos trade-offs; o cronograma precisa terminar antes dele
 box(PX0, ATT_Y, 390, 54, WARN_BG, 8)
 box(PX0, ATT_Y, 5, 54, WARN, 2)
 label('PONTO DE ATENÇÃO', PX0 + 17, ATT_Y + 11, 10, WARN_INK, True)
@@ -204,6 +205,7 @@ text('Priorizar o processo de modelagem da base de dados com o time de AD.',
 # ── Cronograma proporcional ──────────────────────────────────────────────────
 START, END = date(2026, 11, 16), date(2027, 1, 11)
 DAYS = (END - START).days + 1
+DATE_X = 196  # coluna DATA; a coluna ETAPA cabe o nome mais longo (asserção abaixo)
 X0, X1 = 300, 1155
 PXD = (X1 - X0) / DAYS
 
@@ -221,20 +223,23 @@ label('16/11/2026 a 11/01/2027  ·  escala proporcional em dias', 160, 353.5, 10
 
 # Legenda, montada da direita para a esquerda.
 lx = 1160
-for kind, caption in [('target', 'Data-alvo'), ('window', 'Janela proposta'), ('milestone', 'Marco definido')]:
+for kind, caption in [('target', 'Data-alvo'), ('window', 'Janela proposta'), ('milestone', 'Marco definido'),
+                      ('dep', 'Inicia após o marco')]:
     _, w_cap = label(caption, lx, 353, 10.5, MUTED, align='right')
     sx = lx - w_cap - 12
     if kind == 'target':
         diamond(sx, 360, 7, NAVY)
     elif kind == 'window':
         box(sx - 18, 354, 22, 12, PALE, 3, BLUE, 1, (3, 2)); sx -= 11
+    elif kind == 'dep':
+        arrow(sx - 18, sx + 4, 360, BLUE, 1.2, 5); sx -= 11
     else:
         diamond(sx, 360, 6, BLUE)
     lx = sx - 26
 
 BAND_Y = 376
 label('ETAPA', 48, BAND_Y + 4, 9, MUTED, True)
-label('DATA', 196, BAND_Y + 4, 9, MUTED, True)
+label('DATA', DATE_X, BAND_Y + 4, 9, MUTED, True)
 for first, last, name in [(date(2026, 11, 16), date(2026, 11, 30), 'NOVEMBRO 2026'),
                           (date(2026, 12, 1), date(2026, 12, 31), 'DEZEMBRO 2026'),
                           (date(2027, 1, 1), END, 'JANEIRO 2027')]:
@@ -242,12 +247,16 @@ for first, last, name in [(date(2026, 11, 16), date(2026, 11, 30), 'NOVEMBRO 202
     box(x1 + 1, BAND_Y, x2 - x1 - 2, 19, LIGHT)
     label(name, (x1 + x2) / 2, BAND_Y + 4, 9.5, MUTED, True, 'center')
 
-ROW_Y, ROW_H = 416, 24
+ROW_Y, ROW_H = 416, 21
+REF_DAY, POLICY_START = date(2026, 11, 19), date(2026, 11, 23)  # 1º dia útil após a REF (20/11 é feriado)
+ARCH_DAY, DEV_START = date(2026, 11, 24), date(2026, 11, 25)  # desenvolvimento inicia após a arquitetura
 rows = [
     ('Início preliminar', '16/11/2026', 'milestone', date(2026, 11, 16), None, 'Preparação técnica e dependências', 'right'),
-    ('Contratos e REF', '20/11/2026', 'milestone', date(2026, 11, 20), None, 'Regras de simulação e análise automática', 'right'),
-    ('Arquitetura definida', '24/11/2026', 'milestone', date(2026, 11, 24), None, 'Desenho da Entrega 1 e integrações', 'right'),
-    ('Desenvolvimento', '25/11 a 18/12', 'window', date(2026, 11, 25), date(2026, 12, 18), 'APIs, vínculo e testes', 'inside'),
+    ('Contratos e REF', '19/11/2026', 'milestone', REF_DAY, None, 'Regras de simulação e análise automática', 'right'),
+    ('Políticas de crédito', '23/11 a 07/12', 'window', POLICY_START, date(2026, 12, 7), 'Parametrização das políticas de crédito', 'inside'),
+    ('Modelagem da base', '23/11/2026', 'milestone', date(2026, 11, 23), None, 'Base de dados modelada com o time de AD', 'right'),
+    ('Arquitetura definida', '24/11/2026', 'milestone', ARCH_DAY, None, 'Desenho da Entrega 1 e integrações', 'right'),
+    ('Desenvolvimento', '25/11 a 18/12', 'window', DEV_START, date(2026, 12, 18), 'APIs, vínculo e testes', 'inside'),
     ('Certificado mTLS', '12/12/2026', 'milestone', date(2026, 12, 12), None, 'Enviado pelo parceiro', 'right'),
     ('Integração', '21 a 30/12', 'window', date(2026, 12, 21), date(2026, 12, 30), 'Fluxo completo e falhas', 'inside'),
     ('Homologação', '04 a 08/01', 'window', date(2027, 1, 4), date(2027, 1, 8), 'Aceite e preparação', 'left'),
@@ -271,11 +280,13 @@ for i, (name, when, kind, first, last, detail, place) in enumerate(rows):
     ry = ROW_Y + i * ROW_H
     cy = ry + ROW_H / 2
     is_target = kind == 'target'
-    label(name, 48, ry + 5, 11, NAVY, True)
-    label(when, 196, ry + 5.5, 10.5, NAVY if is_target else MUTED, is_target)
+    assert 48 + width(name, 11, True) + 8 < DATE_X, name
+    assert DATE_X + width(when, 10.5, is_target) + 8 < X0, when
+    label(name, 48, ry + 3.5, 11, NAVY, True)
+    label(when, DATE_X, ry + 4, 10.5, NAVY if is_target else MUTED, is_target)
     if kind == 'window':
         bx, bw = day_x(first), day_x(last) + PXD - day_x(first)
-        box(bx, ry + 4, bw, ROW_H - 8, PALE, 4, BLUE, 1.1, (3.5, 2.5))
+        box(bx, ry + 3, bw, ROW_H - 6, PALE, 4, BLUE, 1.1, (3.5, 2.5))
         left, right = bx, bx + bw
     else:
         cx = day_center(first)
@@ -283,24 +294,36 @@ for i, (name, when, kind, first, last, detail, place) in enumerate(rows):
         left, right = cx - 10, cx + 10
     size, color = 10.5, NAVY if is_target else INK
     if place == 'inside':
-        label(detail, (left + right) / 2, ry + 6, size, NAVY, align='center')
+        label(detail, (left + right) / 2, ry + 4, size, NAVY, align='center')
         assert width(detail, size) + 16 < right - left, detail
     elif place == 'right':
-        label(detail, right + 6, ry + 6, size, color, is_target)
+        label(detail, right + 6, ry + 4, size, color, is_target)
     else:
-        label(detail, left - 6, ry + 6, size, color, is_target, 'right')
+        label(detail, left - 6, ry + 4, size, color, is_target, 'right')
 
-text('Janelas de desenvolvimento, integração e homologação propostas; validar capacidade e disponibilidade no fim do ano.',
-     40, rows_end + 7, 1120, 10.5, MUTED, maxh=15)
+# Dependências: o marco libera o início da janela na linha logo abaixo.
+# REF -> políticas de crédito; arquitetura definida -> desenvolvimento.
+for m_day, w_start in [(REF_DAY, POLICY_START), (ARCH_DAY, DEV_START)]:
+    m_i = next(i for i, r in enumerate(rows) if r[2] == 'milestone' and r[3] == m_day)
+    w_i = next(i for i, r in enumerate(rows) if r[2] == 'window' and r[3] == w_start)
+    assert w_i == m_i + 1 and w_start > m_day, (m_day, w_start)
+    mx = day_center(m_day)
+    wy = ROW_Y + w_i * ROW_H + ROW_H / 2
+    line(mx, ROW_Y + m_i * ROW_H + ROW_H / 2 + 7.5, mx, wy, BLUE, 1.2)
+    arrow(mx - .6, day_x(w_start) - 1, wy, BLUE, 1.2, 5)
+
+note_h = text('Janelas de parametrização das políticas de crédito, desenvolvimento, integração e homologação propostas; validar capacidade e disponibilidade no fim do ano.',
+              40, rows_end + 7, 1120, 10.5, MUTED, maxh=15)
+assert rows_end + 7 + note_h + 4 <= TRADE_Y, rows_end
 
 # ── Trade-offs ───────────────────────────────────────────────────────────────
-label('TRADE-OFFS DA REALOCAÇÃO', 40, 640, 13, BLUE, True)
-label('Frentes desaceleradas para liberar capacidade para a Entrega 1', 1160, 641.5, 10.5, MUTED, align='right')
-TO_Y, TO_H, TO_W = 664, 140, 357
+label('TRADE-OFFS DA REALOCAÇÃO', 40, TRADE_Y, 13, BLUE, True)
+label('Frentes desaceleradas para liberar capacidade para a Entrega 1', 1160, TRADE_Y + 1.5, 10.5, MUTED, align='right')
+TO_Y, TO_H, TO_W = TRADE_Y + 24, 132, 357
 for i, (title, metric, metric_caption, body) in enumerate([
     ('Modernização da esteira', '2 → 1 dev', 'na esteira automática',
      'Desacelera a modernização da esteira automática. Novo prazo da frente a replanejar com o resultado do orçamento de 2027.'),
-    ('Desativação Serasa', '15/02/2027', 'novo prazo da migração',
+    ('Desativação Serasa String', '15/02/2027', 'novo prazo da migração',
      'Migração da tela PTA para PCRE-JULG estendida. Renegociar com a Serasa a desativação da API String.'),
     ('Bureau Neurotech', '1T27', 'migração integral',
      'Migração de bureaux desacelera. Neurotech, com início previsto para 2026, passa integralmente para 1T27.'),
@@ -311,7 +334,7 @@ for i, (title, metric, metric_caption, body) in enumerate([
     _, w_metric = label(metric, x + 20, TO_Y + 38, 25, BLUE, True)
     label(metric_caption, x + 20 + w_metric + 10, TO_Y + 51, 10.5, MUTED)
     line(x + 20, TO_Y + 80, x + TO_W - 20, TO_Y + 80, LINE)
-    text(body, x + 20, TO_Y + 90, TO_W - 40, 11, INK, maxh=43, leading=14)
+    text(body, x + 20, TO_Y + 90, TO_W - 40, 11, INK, maxh=TO_H - 98, leading=14)
 
 # ── Rodapé ───────────────────────────────────────────────────────────────────
 label('Entregas 2 e 3: datas a definir.', 40, 819, 10, MUTED)
@@ -326,8 +349,9 @@ c.showPage(); c.save()
 reader = PdfReader(OUT)
 assert len(reader.pages) == 1
 content = ' '.join(reader.pages[0].extract_text().split())  # quebras de linha viram espaço
-for required in ['16/11/2026', '20/11/2026', '24/11/2026', '11/01/2027', '12/12/2026', '15/02/2027',
-                 'SEM ANÁLISE MANUAL NA ENTREGA 1', 'Serasa', 'Neurotech', 'API de status',
+assert '20/11' not in content  # feriado: nenhum marco nesse dia
+for required in ['16/11/2026', '19/11/2026', '23/11/2026', '24/11/2026', '11/01/2027', '12/12/2026', '15/02/2027',
+                 'SEM ANÁLISE MANUAL NA ENTREGA 1', 'Desativação Serasa String', 'Parametrização das políticas de crédito', 'Neurotech', 'API de status',
                  'Confirmar realocação da equipe.', 'time de AD', 'V4']:
     assert required in content, required
 assert '\ufffd' not in content
