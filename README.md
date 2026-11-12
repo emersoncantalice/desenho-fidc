@@ -4,6 +4,8 @@ Projeto para organizar modelos e diagramas de arquitetura utilizando a notação
 
 ## Estrutura
 
+A [versão 3 do one-page executivo](output/pdf/one-page-executivo-entrega-1-v3.pdf) remodela a apresentação com entregáveis na faixa lateral, marcos em cronograma linear, janelas propostas e destaques para mTLS, modelagem com AD e trade-offs.
+
 O [backlog completo separado por entrega](outputs/nova-mesa-20261112/backlog-projeto-por-entrega.xlsx) reúne um épico, cinco features e 55 atividades (28 stories, 10 spikes e 17 tasks), com resumo e abas próprias para as Entregas 1, 2 e 3.
 
 A [versão 2 do one-page executivo](output/pdf/one-page-executivo-entrega-1-v2.pdf) apresenta o cronograma linear, os entregáveis das duas APIs e a ausência de análise manual na Entrega 1, com premissas e trade-offs em blocos visuais.

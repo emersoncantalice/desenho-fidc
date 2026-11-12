@@ -27,6 +27,8 @@ O controle interno de estados, a persistência e a observabilidade continuam nec
 
 ## Premissas e marcos
 
+A [versão 3 do one-page executivo](../output/pdf/one-page-executivo-entrega-1-v3.pdf) reúne o conteúdo executivo revisado, incluindo certificado mTLS enviado pelo parceiro até 12/12/2026 e priorização da modelagem da base de dados com o time de AD.
+
 A [versão 2 do one-page executivo](../output/pdf/one-page-executivo-entrega-1-v2.pdf) apresenta estes marcos em cronograma linear e destaca os entregáveis: simulação síncrona persistida e análise automática assíncrona vinculada à simulação. **A Entrega 1 não terá análise manual**; a análise julgamental mínima entra na Entrega 2.
 
 | Data / marco | Condição para a Entrega 1 | Evidência esperada |

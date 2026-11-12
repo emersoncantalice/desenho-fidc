@@ -111,15 +111,19 @@ for i,(date,title,detail,defined) in enumerate(phases):
     text(detail,x+3,460,154,11.8,MUTED,maxh=32,align=1)
 text('Janelas de desenvolvimento, integração e homologação propostas; validar capacidade e disponibilidade no fim do ano.',40,512,1120,11.3,MUTED,maxh=17)
 
-text('PREMISSAS QUE SUSTENTAM O PRAZO',40,547,1120,13,BLUE,True,19)
+text('PREMISSAS QUE SUSTENTAM O PRAZO',40,535,1120,13,BLUE,True,19)
 for x,title,body in [
-    (40,'Definições de negócio','Contratos e REF em 20/11; arquitetura em 24/11. A REF deve tratar os casos sem decisão automática.'),
-    (420,'Pessoas e ambientes','Confirmar realocação da equipe, acessos e ambientes, com capacidade disponível no fim do ano.'),
-    (800,'Parceiro e implantação','Garantir agenda de homologação, critérios de aceite e janela de implantação para 11/01.'),
+    (40,'Definições de negócio','A REF deve contemplar as regras de simulação e análise de crédito. Não entra derivação inicialmente.'),
+    (420,'Pessoas e ambientes','Confirmar realocação da equipe.'),
+    (800,'Parceiro e implantação','Certificado mTLS enviado pelo parceiro até <b>12/12/2026</b>. Alinhar homologação, aceite e implantação para 11/01.'),
 ]:
-    line(x,578,x+360,578,LINE,1)
-    text(title,x,589,360,13,NAVY,True,19)
-    text(body,x,612,360,12.4,MUTED,maxh=49)
+    line(x,560,x+360,560,LINE,1)
+    text(title,x,570,360,13,NAVY,True,19)
+    text(body,x,594,360,12.4,MUTED,maxh=49)
+
+box(40,647,1120,28,PALE,4)
+text('PONTO DE ATENÇÃO',52,654,170,11.5,BLUE,True,16)
+text('Priorizar o processo de modelagem da base de dados com o time de AD.',230,653,915,12.4,NAVY,maxh=18)
 
 text('TRADE-OFFS DA REALOCAÇÃO',40,681,1120,13,BLUE,True,19)
 cards=[
@@ -147,7 +151,8 @@ reader=PdfReader(OUT)
 assert len(reader.pages)==1
 content=reader.pages[0].extract_text()
 for required in ['16/11/2026','20/11/2026','24/11/2026','11/01/2027',
-                 '15/02/2027','SEM ANÁLISE MANUAL NA ENTREGA 1','Serasa','Neurotech']:
+                 '15/02/2027','SEM ANÁLISE MANUAL NA ENTREGA 1','Serasa','Neurotech',
+                 '12/12/2026','Confirmar realocação da equipe.','time de AD']:
     assert required in content,required
 assert '\ufffd' not in content
 assert all(name not in content.upper() for name in ['VITOR', 'GUSTAVO', 'AINE'])
