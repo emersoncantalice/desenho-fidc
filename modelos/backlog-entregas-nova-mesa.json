@@ -1,0 +1,1028 @@
+{
+  "epic": "EP-01 - Jornada de simulação e análise de crédito FIDC",
+  "features": [
+    {
+      "id": "FT-01",
+      "delivery": 1,
+      "title": "API de simulação",
+      "scope": "Simulação síncrona salva na base; resultado e identificador retornados na mesma chamada."
+    },
+    {
+      "id": "FT-02",
+      "delivery": 1,
+      "title": "API de análise de crédito assíncrona",
+      "scope": "Aceite com protocolo, decisão automática, correlação com simulação e retorno posterior ao parceiro."
+    },
+    {
+      "id": "FT-03",
+      "delivery": 2,
+      "title": "API de status",
+      "scope": "Consulta autorizada do andamento e resultado da análise, com correlação."
+    },
+    {
+      "id": "FT-04",
+      "delivery": 2,
+      "title": "Análise julgamental mínima",
+      "scope": "Derivação, fila única FIDC na PCRE-JULG, consulta, decisão manual e consolidação do resultado."
+    },
+    {
+      "id": "FT-05",
+      "delivery": 3,
+      "title": "Pendência documental e troca de arquivos",
+      "scope": "Pendenciar, notificar, enviar, validar, corrigir e consultar arquivos; concluir a pendência e retomar a análise."
+    }
+  ],
+  "items": [
+    {
+      "id": "PRE-01",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Iniciar trabalhos preliminares em 16/11/2026",
+      "deps": [],
+      "acceptance": "Levantar dependências, acessos e capacidade; iniciar preparação técnica em paralelo aos contratos e à REF.",
+      "origin": "E1-00",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": "2026-11-16",
+      "deadline": null
+    },
+    {
+      "id": "REF-01",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Spike",
+      "title": "Definir a REF de simulação e análise automática",
+      "deps": [
+        "PRE-01"
+      ],
+      "acceptance": "Regras e cenários de aceite definidos, incluindo tratamento de casos sem decisão automática e sem mesa disponível.",
+      "origin": "E1-02",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": "2026-11-20"
+    },
+    {
+      "id": "F3-01",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Spike",
+      "title": "Definir runtime, região no GCP e produto MySQL",
+      "deps": [
+        "PRE-01"
+      ],
+      "acceptance": "Ambientes e produtos definidos para o recorte das APIs.",
+      "origin": "F3-01",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-02",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Spike",
+      "title": "Definir contratos das APIs, correlação e retorno assíncrono",
+      "deps": [
+        "PRE-01"
+      ],
+      "acceptance": "Contratos acordados até 20/11: payloads, erros, aceite, resultado, identificadores, validade e cardinalidade da correlação.",
+      "origin": "F3-02",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": "2026-11-20"
+    },
+    {
+      "id": "F3-03",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Spike",
+      "title": "Definir mTLS e identidade do parceiro",
+      "deps": [
+        "F3-02"
+      ],
+      "acceptance": "Emissão, rotação, revogação e vínculo dos certificados ao parceiro definidos.",
+      "origin": "F3-03",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-05",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Spike",
+      "title": "Definir timeout, retentativas e recuperação do retorno",
+      "deps": [
+        "F3-02"
+      ],
+      "acceptance": "Mecanismo de retorno e política de falhas acordados; callback com mTLS é a proposta a confirmar.",
+      "origin": "F3-05",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-06",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Desenhar arquitetura, integrações, dados e execução assíncrona",
+      "deps": [
+        "F3-01",
+        "F3-02",
+        "F3-03",
+        "F3-05",
+        "REF-01"
+      ],
+      "acceptance": "Desenho do recorte das APIs concluído; mecanismo assíncrono dimensionado sem dependência da mesa.",
+      "origin": "F3-06",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": "2026-11-24"
+    },
+    {
+      "id": "F3-07",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Provisionar ambientes no GCP e CI/CD",
+      "deps": [
+        "F3-06"
+      ],
+      "acceptance": "Ambientes, acessos e pipeline disponíveis para desenvolver e homologar.",
+      "origin": "F3-07",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-08",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Provisionar MySQL, rede, usuários e backup",
+      "deps": [
+        "F3-06"
+      ],
+      "acceptance": "Persistência acessível com permissões e recuperação definidas.",
+      "origin": "F3-08",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-10",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Provisionar mTLS e certificados de homologação",
+      "deps": [
+        "F3-03",
+        "F3-07"
+      ],
+      "acceptance": "Entrada e retorno externo com segurança disponível em homologação.",
+      "origin": "F3-10",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "SIM-01",
+      "delivery": 1,
+      "feature": "FT-01",
+      "type": "Story",
+      "title": "Implementar a API de simulação síncrona",
+      "deps": [
+        "F3-02",
+        "REF-01",
+        "F3-07",
+        "F3-08"
+      ],
+      "acceptance": "Validar entrada, executar regras, salvar dados e resultado da simulação na base e retornar resultado e idSimulacao na mesma chamada; erros e timeout conforme contrato.",
+      "origin": "E1-04",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-16",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Receber e validar a solicitação de análise assíncrona",
+      "deps": [
+        "F3-02",
+        "F3-07"
+      ],
+      "acceptance": "Aceitar requisição sem aguardar a decisão de crédito; validar payload conforme contrato.",
+      "origin": "F3-16",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-17",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Persistir solicitação e devolver protocolo único de aceite",
+      "deps": [
+        "F3-08",
+        "F3-16"
+      ],
+      "acceptance": "Aceite só após persistência; identificador de análise retornado ao parceiro.",
+      "origin": "F3-17",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "COR-01",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Vincular análise à simulação de origem",
+      "deps": [
+        "F3-02",
+        "F3-17"
+      ],
+      "acceptance": "Consultar a simulação salva na base e vincular a análise a ela por idSimulacao; persistir idAnalise, validar titularidade, validade e compatibilidade e manter vínculo no resultado.",
+      "origin": "E1-05",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-18",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Controlar os estados internos da análise automática",
+      "deps": [
+        "F3-17"
+      ],
+      "acceptance": "Transições auditáveis e tratamento de falhas conforme REF, sem API externa de status ou derivação manual.",
+      "origin": "F3-18",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-19",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Solicitar decisão à PDEC e persistir o resultado automático",
+      "deps": [
+        "F3-18",
+        "REF-01",
+        "COR-01"
+      ],
+      "acceptance": "Processar após o aceite e registrar decisão ou tratamento de ausência de decisão conforme REF.",
+      "origin": "F3-19",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-21",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Garantir idempotência da solicitação de análise",
+      "deps": [
+        "F3-17"
+      ],
+      "acceptance": "Reenvio com a mesma chave preserva protocolo e correlação; conflitos tratados conforme contrato.",
+      "origin": "F3-21",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-27",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Proteger decisão automática contra resultados duplicados ou tardios",
+      "deps": [
+        "F3-19",
+        "F3-21"
+      ],
+      "acceptance": "Resultado final não é sobrescrito indevidamente; removida a dependência da decisão manual F3-26.",
+      "origin": "F3-27",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-28",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Entregar resultado assíncrono correlacionado ao parceiro",
+      "deps": [
+        "F3-05",
+        "F3-10",
+        "F3-19"
+      ],
+      "acceptance": "Retorno posterior identifica simulação e análise; confirmação e autenticação conforme contrato.",
+      "origin": "F3-28",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-29",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Registrar tentativas e recuperar falhas de retorno",
+      "deps": [
+        "F3-28"
+      ],
+      "acceptance": "Falhas ficam rastreáveis e permitem recuperação sem duplicar decisões.",
+      "origin": "F3-29",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-11",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Implementar logs, métricas, alertas e rastreio",
+      "deps": [
+        "F3-07"
+      ],
+      "acceptance": "Simulação, análise e retorno rastreáveis pelos identificadores correlacionados.",
+      "origin": "F3-11",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-30",
+      "delivery": 1,
+      "feature": "FT-02",
+      "type": "Story",
+      "title": "Manter trilha de auditoria da solicitação e decisão",
+      "deps": [
+        "F3-18",
+        "COR-01"
+      ],
+      "acceptance": "Registrar transições e decisões com vínculo à simulação e ao parceiro.",
+      "origin": "F3-30",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "SEC-01",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Story",
+      "title": "Autenticar e autorizar o consumo das APIs",
+      "deps": [
+        "F3-10",
+        "F3-16",
+        "SIM-01"
+      ],
+      "acceptance": "Isolar parceiros; bloquear acesso ou referência a simulação de outro parceiro; testar falhas de autenticação.",
+      "origin": "E1-03, E1-08",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-12",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Executar testes de carga e resiliência das APIs",
+      "deps": [
+        "F3-27",
+        "F3-29",
+        "SEC-01",
+        "SIM-01"
+      ],
+      "acceptance": "Validar carga, indisponibilidade da PDEC, timeout, duplicação e recuperação conforme requisitos acordados.",
+      "origin": "F3-12",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-13",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Homologar simulação, análise e retorno com o parceiro",
+      "deps": [
+        "SIM-01",
+        "COR-01",
+        "F3-27",
+        "F3-29",
+        "F3-30",
+        "SEC-01"
+      ],
+      "acceptance": "Fluxo completo homologado, incluindo correlação inválida/expirada e ausência de decisão automática.",
+      "origin": "F3-13",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-14",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Preparar implantação, runbook, rollback e onboarding",
+      "deps": [
+        "F3-11",
+        "F3-29"
+      ],
+      "acceptance": "Operação e procedimentos de recuperação documentados e revisados.",
+      "origin": "F3-14",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-15",
+      "delivery": 1,
+      "feature": "FT-01 + FT-02",
+      "type": "Task",
+      "title": "Disponibilizar a Entrega 1 e obter aceite do negócio",
+      "deps": [
+        "F3-12",
+        "F3-13",
+        "F3-14"
+      ],
+      "acceptance": "Duas APIs e correlação homologadas e disponibilizadas para a data-alvo de 11/01/2027.",
+      "origin": "F3-15",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": "2027-01-11"
+    },
+    {
+      "id": "STS-01",
+      "delivery": 2,
+      "feature": "FT-03",
+      "type": "Spike",
+      "title": "Definir contrato da API de status",
+      "deps": [
+        "F3-02"
+      ],
+      "acceptance": "Estados, autorização, identificadores e conteúdo do resultado definidos.",
+      "origin": "",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "STS-02",
+      "delivery": 2,
+      "feature": "FT-03",
+      "type": "Story",
+      "title": "Implementar consulta de andamento e resultado",
+      "deps": [
+        "STS-01",
+        "F3-18",
+        "F3-15"
+      ],
+      "acceptance": "Consulta autorizada retorna estado e resultado correlacionados, incluindo andamento manual quando disponível.",
+      "origin": "",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-04",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Spike",
+      "title": "Mapear pontos de extensão da PCRE-JULG para a mesa mínima",
+      "deps": [],
+      "acceptance": "Pontos de integração, campos e regras da atuação manual definidos.",
+      "origin": "F3-04",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-09",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Task",
+      "title": "Provisionar tópicos, schemas e ACLs Kafka para a mesa",
+      "deps": [
+        "F3-04",
+        "F3-06"
+      ],
+      "acceptance": "Eventos de derivação e decisão disponíveis com permissões e contratos definidos.",
+      "origin": "F3-09",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-20",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Story",
+      "title": "Publicar derivação para a mesa com outbox",
+      "deps": [
+        "F3-09",
+        "F3-19",
+        "F3-15"
+      ],
+      "acceptance": "Casos de decisão manual encaminhados com entrega confiável e correlação.",
+      "origin": "F3-20",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-22",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Story",
+      "title": "Consumir derivações e exibir fila única FIDC",
+      "deps": [
+        "F3-04",
+        "F3-09",
+        "F3-20"
+      ],
+      "acceptance": "Solicitações disponíveis na PCRE-JULG, sem gestão avançada de filas.",
+      "origin": "F3-22",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-23",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Story",
+      "title": "Exibir dados da solicitação e resultado automático",
+      "deps": [
+        "F3-22"
+      ],
+      "acceptance": "Analista consulta os dados necessários ao julgamento, sem fluxo documental.",
+      "origin": "F3-23",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-24",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Story",
+      "title": "Registrar e publicar decisão manual",
+      "deps": [
+        "F3-23"
+      ],
+      "acceptance": "Decisão registrada e auditada; sem ação de pendenciar nesta entrega.",
+      "origin": "F3-24",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-25",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Story",
+      "title": "Controlar perfis de acesso à mesa",
+      "deps": [
+        "F3-22"
+      ],
+      "acceptance": "Somente analistas autorizados consultam e decidem solicitações.",
+      "origin": "F3-25",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "F3-26",
+      "delivery": 2,
+      "feature": "FT-04",
+      "type": "Story",
+      "title": "Consolidar decisão manual e atualizar retorno e status",
+      "deps": [
+        "F3-20",
+        "F3-24",
+        "F3-27",
+        "STS-02"
+      ],
+      "acceptance": "Decisão manual protegida contra duplicação; status atualizado e resultado comunicado pelo fluxo de retorno existente.",
+      "origin": "F3-26",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "HML-02",
+      "delivery": 2,
+      "feature": "FT-03 + FT-04",
+      "type": "Task",
+      "title": "Homologar status e análise julgamental mínima",
+      "deps": [
+        "F3-26",
+        "F3-25",
+        "STS-02"
+      ],
+      "acceptance": "Validar autorização, derivação, fila, decisão, duplicação e retorno ponta a ponta.",
+      "origin": "",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "REL-02",
+      "delivery": 2,
+      "feature": "FT-03 + FT-04",
+      "type": "Task",
+      "title": "Implantar Entrega 2 e atualizar operação",
+      "deps": [
+        "HML-02",
+        "F3-14"
+      ],
+      "acceptance": "Aceite do negócio, monitoramento e plano de implantação e rollback definidos.",
+      "origin": "",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-01",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Spike",
+      "title": "Definir documentos exigidos, motivo, prazo, expiração e reanálise",
+      "deps": [],
+      "acceptance": "Motivos, documentos obrigatórios, prazo, expiração e condições para reanálise acordados.",
+      "origin": "D3-01",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-02",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Spike",
+      "title": "Definir bucket privado, região, retenção, limites e validação de arquivos",
+      "deps": [],
+      "acceptance": "Armazenamento privado, retenção, limites de arquivo e isolamento definidos.",
+      "origin": "D3-02",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-03",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Spike",
+      "title": "Definir contratos de pendência, callback e correlação por protocolo e versão",
+      "deps": [
+        "D3-01",
+        "F3-02"
+      ],
+      "acceptance": "Contratos documentais e notificações definidos com protocolo e versão da pendência; ampliar API de status.",
+      "origin": "D3-03",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-04",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Task",
+      "title": "Desenhar a extensão documental: estados, eventos, upload e responsabilidades",
+      "deps": [],
+      "acceptance": "Desenho de estados, eventos, upload, acessos e responsabilidades concluído.",
+      "origin": "D3-04",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-05",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Task",
+      "title": "Provisionar bucket privado, acessos, notificações e quarentena",
+      "deps": [
+        "D3-02",
+        "D3-04",
+        "F3-07"
+      ],
+      "acceptance": "Bucket privado, permissões, notificações e quarentena disponíveis.",
+      "origin": "D3-05",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-06",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Analista pendencia a solicitação com motivo, documentos e prazo",
+      "deps": [
+        "D3-01",
+        "D3-03",
+        "D3-04",
+        "F3-23",
+        "REL-02"
+      ],
+      "acceptance": "Analista registra motivo, documentos, prazo e versão ativa da pendência na PCRE-JULG.",
+      "origin": "D3-06",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-07",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Esteira registra a pendência e notifica o parceiro, que avisa o cliente",
+      "deps": [
+        "D3-06",
+        "F3-18",
+        "F3-29",
+        "STS-02"
+      ],
+      "acceptance": "Esteira registra a pendência e notifica o parceiro para avisar o cliente; andamento disponível no status.",
+      "origin": "D3-07",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-08",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Autorizar o cliente e emitir URL temporária por documento da pendência",
+      "deps": [
+        "D3-03",
+        "D3-05",
+        "D3-06"
+      ],
+      "acceptance": "Cliente autorizado recebe acesso temporário por documento, vinculado à pendência ativa.",
+      "origin": "D3-08",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-09",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Cliente consulta a pendência e envia os documentos pelo canal ao bucket",
+      "deps": [
+        "D3-07",
+        "D3-08"
+      ],
+      "acceptance": "Cliente consulta os requisitos e envia arquivos pelo canal ao armazenamento privado.",
+      "origin": "D3-09",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-10",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Validar arquivos recebidos e isolar conteúdo inválido antes da liberação",
+      "deps": [
+        "D3-05",
+        "D3-08",
+        "F3-08"
+      ],
+      "acceptance": "Arquivos validados antes da liberação; conteúdo inválido isolado; envio parcial mantém a pendência.",
+      "origin": "D3-10",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-11",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Consolidar documentos válidos e publicar conclusão com outbox e idempotência",
+      "deps": [
+        "D3-10"
+      ],
+      "acceptance": "Conclusão publicada com outbox e idempotência somente após todos os documentos obrigatórios válidos.",
+      "origin": "D3-11",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-12",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Retomar a análise uma única vez, somente para a versão ativa da pendência",
+      "deps": [
+        "D3-11",
+        "F3-27"
+      ],
+      "acceptance": "Retomar análise uma única vez por versão ativa; evento antigo não reabre análise encerrada.",
+      "origin": "D3-12",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-13",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Analista consulta documentos por acesso autorizado e histórico auditável",
+      "deps": [
+        "D3-10",
+        "F3-25"
+      ],
+      "acceptance": "Analista autorizado consulta arquivos válidos e histórico; acesso auditado.",
+      "origin": "D3-13",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-14",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Story",
+      "title": "Cliente corrige arquivo rejeitado ou upload expirado preservando o histórico",
+      "deps": [
+        "D3-09",
+        "D3-10"
+      ],
+      "acceptance": "Permitir corrigir arquivo rejeitado ou envio expirado preservando histórico e vínculo.",
+      "origin": "D3-14",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-15",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Task",
+      "title": "Homologar pendência, upload parcial, acesso indevido, falhas e reanálise",
+      "deps": [
+        "D3-12",
+        "D3-13",
+        "D3-14",
+        "REL-02"
+      ],
+      "acceptance": "Homologar pendência, envio parcial, acesso indevido, falhas, correção e retomada sem duplicação.",
+      "origin": "D3-15",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    },
+    {
+      "id": "D3-16",
+      "delivery": 3,
+      "feature": "FT-05",
+      "type": "Task",
+      "title": "Implantar FIDC com documentos, métricas, alertas, runbook e rollback",
+      "deps": [
+        "D3-15",
+        "F3-12",
+        "F3-14"
+      ],
+      "acceptance": "Implantar com métricas, alertas, runbook e rollback; aceite do negócio obtido.",
+      "origin": "D3-16",
+      "owner": "",
+      "status": "A planejar",
+      "effort": null,
+      "start": null,
+      "deadline": null
+    }
+  ]
+}

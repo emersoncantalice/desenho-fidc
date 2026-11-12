@@ -1,0 +1,254 @@
+{
+  "name": "Entrega 1 — Simulação e análise automática",
+  "width": 1800,
+  "height": 1540,
+  "nodes": [
+    {
+      "id": "heading",
+      "x": 40,
+      "y": 20,
+      "w": 1720,
+      "h": 85,
+      "title": "ENTREGA 1 | 11/01/2027",
+      "detail": "Simulação síncrona + análise de crédito assíncrona + correlação",
+      "kind": "heading",
+      "change": ""
+    },
+    {
+      "id": "sync",
+      "x": 40,
+      "y": 130,
+      "w": 1720,
+      "h": 290,
+      "title": "01 | SIMULAÇÃO SÍNCRONA",
+      "detail": "A simulação é salva na base; resultado e identificador são devolvidos na mesma chamada.",
+      "kind": "group",
+      "change": ""
+    },
+    {
+      "id": "partner",
+      "x": 70,
+      "y": 230,
+      "w": 340,
+      "h": 130,
+      "title": "Parceiro",
+      "detail": "Solicita a simulação\nRecebe resultado + idSimulacao\nNomes dos campos a contratar",
+      "kind": "component",
+      "change": ""
+    },
+    {
+      "id": "simulation",
+      "x": 580,
+      "y": 230,
+      "w": 450,
+      "h": 130,
+      "title": "API de simulação",
+      "detail": "Valida a entrada e aplica as regras\nSalva dados e resultado da simulação\nRetorna resultado + idSimulacao",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "rules",
+      "x": 1350,
+      "y": 230,
+      "w": 370,
+      "h": 130,
+      "title": "PDEC | Simulação",
+      "detail": "Regras de simulação\nREF até 20/11/2026\nIntegração a detalhar no contrato",
+      "kind": "component",
+      "change": ""
+    },
+    {
+      "id": "async",
+      "x": 40,
+      "y": 460,
+      "w": 1720,
+      "h": 660,
+      "title": "02 | ANÁLISE DE CRÉDITO ASSÍNCRONA",
+      "detail": "Aceite inicial com protocolo; processamento e resultado posteriores. Sem API de status e sem mesa.",
+      "kind": "group",
+      "change": ""
+    },
+    {
+      "id": "requester",
+      "x": 70,
+      "y": 570,
+      "w": 340,
+      "h": 140,
+      "title": "Parceiro | Solicitação",
+      "detail": "Envia idSimulacao já persistido\nSolicita a análise de crédito\nRecebe protocolo de aceite\nNão aguarda a decisão de crédito",
+      "kind": "component",
+      "change": ""
+    },
+    {
+      "id": "analysis",
+      "x": 580,
+      "y": 570,
+      "w": 450,
+      "h": 140,
+      "title": "API / esteira de análise",
+      "detail": "Recebe idSimulacao e consulta a base\nVincula análise à simulação persistida\nPersiste o aceite e agenda a análise\nProcessamento assíncrono; sem mesa",
+      "kind": "component",
+      "change": "new"
+    },
+    {
+      "id": "pdec",
+      "x": 1350,
+      "y": 570,
+      "w": 370,
+      "h": 140,
+      "title": "PDEC | Análise automática",
+      "detail": "Execução após o aceite\nREF até 20/11/2026\nCasos sem decisão: definir na REF\nChamada interna conforme contrato",
+      "kind": "component",
+      "change": ""
+    },
+    {
+      "id": "callback",
+      "x": 70,
+      "y": 900,
+      "w": 340,
+      "h": 150,
+      "title": "Retorno ao parceiro",
+      "detail": "Resultado posterior e correlacionado\nCallback com mTLS é a proposta\nConfirmar mecanismo até 20/11\nPrever retentativas e recuperação",
+      "kind": "component",
+      "change": ""
+    },
+    {
+      "id": "db",
+      "x": 580,
+      "y": 900,
+      "w": 450,
+      "h": 150,
+      "title": "Persistência da esteira | MySQL",
+      "detail": "Simulação: dados, resultado e identificador\nAnálise vinculada pelo idSimulacao\nEstados, decisões e tentativas de retorno",
+      "kind": "database",
+      "change": "new"
+    },
+    {
+      "id": "excluded",
+      "x": 1350,
+      "y": 900,
+      "w": 370,
+      "h": 150,
+      "title": "ENTREGAS POSTERIORES",
+      "detail": "Entrega 2: API de status\nMesa mínima, fila e decisão manual\nEntrega 3: pendências e arquivos\nDatas a definir",
+      "kind": "note",
+      "change": "legacy"
+    },
+    {
+      "id": "milestones",
+      "x": 40,
+      "y": 1170,
+      "w": 550,
+      "h": 230,
+      "title": "MARCOS E PREMISSAS",
+      "detail": "16/11/2026: início dos trabalhos preliminares\n20/11/2026: contratos e REF definidos\n11/01/2027: Entrega 1\n\nPrazo depende de definições e capacidade.\nPreparação técnica em paralelo aos contratos.",
+      "kind": "note",
+      "change": ""
+    },
+    {
+      "id": "tradeoffs",
+      "x": 625,
+      "y": 1170,
+      "w": 1135,
+      "h": 230,
+      "title": "REALOCAR PESSOAS PARA O DESENVOLVIMENTO",
+      "detail": "Vitor | Modernização da esteira automática: redução de 2 devs para 1 dev.\nGustavo | Migração da tela PTA → PCRE-JULG: novo prazo em 15/02/2027.\n                 Renegociar com a Serasa a desativação da API String (pendente).\nAine | Migração de bureaux desacelera; Neurotech passa integralmente para 2027.\n\nAlocação nominal e dedicação na Entrega 1 ainda precisam ser confirmadas.\n15/02/2027 é o prazo da migração da tela, não da segunda entrega FIDC.",
+      "kind": "note",
+      "change": ""
+    },
+    {
+      "id": "legend",
+      "x": 40,
+      "y": 1450,
+      "w": 1720,
+      "h": 65,
+      "title": "",
+      "detail": "Azul: entrega a implementar. Cinza: escopo posterior. IDs ilustrativos, sujeitos ao contrato.\nPontilhado: resultado posterior ao aceite; o transporte do callback pode ser uma chamada HTTP síncrona.",
+      "kind": "text",
+      "change": ""
+    }
+  ],
+  "edges": [
+    {
+      "id": "simulate",
+      "source": "partner",
+      "target": "simulation",
+      "label": "Solicitação / resultado",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "simulate_rules",
+      "source": "simulation",
+      "target": "rules",
+      "label": "Regras / resultado",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "accept",
+      "source": "requester",
+      "target": "analysis",
+      "label": "Solicitação / aceite",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "decide",
+      "source": "analysis",
+      "target": "pdec",
+      "label": "Decisão automática",
+      "sourceSide": "right",
+      "targetSide": "left",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "save_simulation",
+      "source": "simulation",
+      "target": "db",
+      "label": "Salva simulação",
+      "sourceSide": "bottom",
+      "targetSide": "right",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "persist",
+      "source": "analysis",
+      "target": "db",
+      "label": "Salva vínculo",
+      "sourceSide": "bottom",
+      "targetSide": "top",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "load_simulation",
+      "source": "db",
+      "target": "analysis",
+      "label": "Simulação salva",
+      "sourceSide": "top",
+      "targetSide": "bottom",
+      "async_": false,
+      "via": null
+    },
+    {
+      "id": "notify",
+      "source": "analysis",
+      "target": "callback",
+      "label": "Resultado correlacionado",
+      "sourceSide": "left",
+      "targetSide": "top",
+      "async_": true,
+      "via": null
+    }
+  ]
+}

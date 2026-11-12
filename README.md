@@ -4,6 +4,16 @@ Projeto para organizar modelos e diagramas de arquitetura utilizando a notação
 
 ## Estrutura
 
+O [backlog completo separado por entrega](outputs/nova-mesa-20261112/backlog-projeto-por-entrega.xlsx) reúne um épico, cinco features e 55 atividades (28 stories, 10 spikes e 17 tasks), com resumo e abas próprias para as Entregas 1, 2 e 3.
+
+A [versão 2 do one-page executivo](output/pdf/one-page-executivo-entrega-1-v2.pdf) apresenta o cronograma linear, os entregáveis das duas APIs e a ausência de análise manual na Entrega 1, com premissas e trade-offs em blocos visuais.
+
+O [one-page executivo da Entrega 1](output/pdf/one-page-executivo-entrega-1.pdf) apresenta cronograma, premissas e trade-offs, incluindo a arquitetura definida até **24/11/2026** e a entrega em **11/01/2027**.
+
+A [estrutura total da nova mesa FIDC](docs/estrutura-projeto-nova-mesa.md) organiza **um épico e 5 features em três entregas**: **1 — duas APIs; 2 — API de status e análise julgamental mínima; 3 — pendências documentais e troca de arquivos**. Materiais: [one-page da Entrega 1](output/pdf/one-page-entrega-1-nova-mesa.pdf) e [Excel com o backlog completo](outputs/nova-mesa-20261112/backlog-completo-nova-mesa.xlsx).
+
+O recorte da **Entrega 1 da nova mesa FIDC** está em [escopo, backlog e trade-offs](docs/entrega-0-nova-mesa.md), com [diagrama próprio](diagramas/entrega-0-nova-mesa.svg): trabalhos preliminares em **16/11/2026**, contratos e REF até **20/11/2026** e entrega das APIs de simulação, análise automática e correlação em **11/01/2027**. API de status e mesa julgamental ficam para a segunda entrega. Para regenerar essa vista isoladamente, execute `python modelos/gerar_entrega_0.py`.
+
 - `modelos/`: arquivos editáveis dos modelos de arquitetura.
 - `diagramas/`: exportações dos diagramas, como SVG, PNG e PDF.
 - `docs/`: contexto, requisitos e decisões de arquitetura.

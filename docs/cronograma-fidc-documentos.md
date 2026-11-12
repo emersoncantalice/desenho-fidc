@@ -1,5 +1,9 @@
 # Cronogramas por perfil — Mesa FIDC e documentos
 
+> A [estrutura do projeto por épico e features](estrutura-projeto-nova-mesa.md) distribui o escopo em Entrega 1 (APIs), Entrega 2 (status e julgamental mínima) e Entrega 3 (pendências e arquivos). A extensão documental D3 pertence à Entrega 3.
+
+> Para o recorte com data-alvo de **11/01/2027**, consulte a [Entrega 1 — simulação e análise automática](entrega-0-nova-mesa.md). As comparações abaixo abrangem mesa e documentos e precisam de reestimativa para o novo escopo e a capacidade realocada.
+
 Comparação de capacidade com **2, 3 e 4 desenvolvedores**, aplicada separadamente à base FIDC e à extensão de pendência documental. Atualização: 2026-11-11.
 
 ![Comparativo das equipes](../diagramas/comparativo-equipes-fidc.png)

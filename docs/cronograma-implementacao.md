@@ -1,5 +1,9 @@
 # Cronograma de implementação dos cenários
 
+> A divisão atual da nova mesa FIDC está na [tabela do épico e suas features](estrutura-projeto-nova-mesa.md): Entrega 1 — APIs; Entrega 2 — status e julgamental mínima; Entrega 3 — pendências documentais e troca de arquivos.
+
+> **Recorte atualizado em 12/11/2026:** o compromisso de 11/01/2027 da vista 3 está detalhado na [Entrega 1 — simulação e análise automática](entrega-0-nova-mesa.md), com início preliminar em 16/11 e contratos e REF até 20/11. O cronograma completo abaixo permanece como referência; API de status e mesa julgamental ficam para a segunda entrega, sem data definida.
+
 Backlog e cronograma de implementação das propostas descritas em [Análise externa de propostas de crédito](analise-externa-de-propostas.md). A vista 1 (AS IS) é o estado atual e não tem itens de implementação. Atualização: 2026-11-10.
 
 ## Premissas
