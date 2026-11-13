@@ -1,0 +1,112 @@
+﻿ID;Feature;Tipo;Título;Contexto;Critérios de aceite
+SPK-01;FT-01 + FT-02;Spike;Definir os contratos de entrada e saída das APIs;As APIs de simulação (síncrona) e de análise (assíncrona) precisam de contrato acordado com o parceiro até 20/11/2026. Sem API de status, o contrato do callback é o único meio de o parceiro receber o resultado.;"• Contrato da API de simulação: requisição, resposta com resultado e idSimulacao, erros e timeout.
+• Contrato da API de análise: requisição com idSimulacao, aceite com protocolo, chave de idempotência e erros.
+• Contrato do callback: payload com protocolo e idSimulacao, confirmação de recebimento, códigos de resposta e política de retentativas.
+• Regras de correlação definidas: validade da simulação, titularidade, compatibilidade dos dados e quantas análises uma simulação admite.
+• Contratos versionados (OpenAPI), com exemplos, aceitos pelo parceiro até 20/11/2026."
+SPK-02;FT-01 + FT-02;Spike;Especificar as políticas de crédito a partir da REF;O negócio entrega até 20/11/2026 a REF com as regras de simulação e de análise automática. Não entra derivação para análise manual, então a REF precisa definir o que acontece quando não há decisão automática.;"• Variáveis de entrada, fontes de dados e saídas de cada política mapeadas.
+• Regras de simulação e de análise especificadas para implementação na PDEC.
+• Tratamento definido para casos sem decisão automática, sem encaminhamento à mesa.
+• Dados externos usados pelas políticas (ex.: bureaux) identificados, com integração disponível no prazo.
+• Massa de cenários de teste com resultado esperado validada com o negócio."
+SPK-03;FT-01 + FT-02;Spike;Definir o modelo de dados com o time de AD;Ponto de atenção do plano: a modelagem da base precisa ser priorizada com o time de AD para não bloquear o desenvolvimento. A base guarda simulação, análise, vínculo entre elas e tentativas de callback.;"• Modelo lógico e físico aprovado pelo time de AD.
+• Entidades cobertas: simulação e resultado, solicitação de análise e protocolo, estados da análise, vínculo simulação ↔ análise, tentativas de callback e auditoria.
+• Chaves, índices e restrições de unicidade para idempotência definidos.
+• Retenção e tratamento de dados pessoais (LGPD) definidos."
+SPK-04;FT-02;Spike;Definir o mecanismo de execução assíncrona do orquestrador;"A análise é aceita com protocolo e processada depois. Sem mesa nesta entrega, o Kafka da derivação manual não é obrigatório; é preciso decidir como o orquestrador enfileira e processa as análises.";"• Opções avaliadas (ex.: Pub/Sub, Kafka, outbox no MySQL) com prós, contras e custo.
+• Decisão registrada considerando garantia de entrega, reprocessamento e volume esperado.
+• Estratégia de retentativa e de mensagens com falha definida.
+• Decisão incorporada ao desenho de arquitetura da FT-02 até 24/11/2026."
+SPK-05;FT-01 + FT-02;Spike;Definir o mTLS e a identificação do parceiro no Apigee e no callback;As duas chamadas com o parceiro (entrada nas APIs e callback) exigem mTLS. O parceiro precisa enviar o certificado até 12/12/2026.;"• Terminação mTLS de entrada no Apigee definida, com a cadeia de certificados aceita.
+• Certificado cliente do callback definido: emissão, armazenamento, rotação e revogação.
+• Identificação do parceiro na requisição definida (certificado e credencial do app no Apigee).
+• Insumos e prazos combinados com o parceiro, incluindo o certificado até 12/12/2026."
+SPK-06;FT-01;Spike;Definir o SLA e validar o tempo de resposta da simulação síncrona;A simulação responde na mesma chamada. O tempo total soma Apigee, serviço, PDEC e base, e ainda não há SLA nem volume acordados.;"• SLA de tempo de resposta e volume de pico acordados com o parceiro.
+• Latência da política de simulação na PDEC medida.
+• Timeout de cada chamada definido de forma coerente com o SLA.
+• Riscos de capacidade registrados no desenho da FT-01."
+TSK-01;FT-01 + FT-02;Task;Provisionar os ambientes no GCP e o pipeline de CI/CD;O serviço de simulação e o orquestrador rodam no GCP. Ambientes e pipeline precisam estar prontos para o início do desenvolvimento, previsto para 25/11/2026.;"• Ambientes de desenvolvimento, homologação e produção criados no runtime definido no desenho.
+• Repositórios e pipeline com build, testes, análise de código e deploy por ambiente.
+• Service accounts com permissões mínimas por serviço.
+• Secret Manager configurado para credenciais e certificados."
+TSK-02;FT-01 + FT-02;Task;Provisionar o MySQL cloud;Base da esteira com simulação, análise, vínculo e callback, conforme o modelo do SPK-03.;"• Instâncias de homologação e produção criadas em rede privada.
+• Usuários por serviço com privilégios mínimos.
+• Backup, recuperação e alta disponibilidade configurados conforme o desenho.
+• Conexão validada a partir dos serviços em cada ambiente."
+TSK-03;FT-01 + FT-02;Task;Provisionar o Apigee para as APIs do parceiro;A entrada do parceiro passa pelo Apigee. Antes dos proxies, é preciso ter ambientes, produto de API e credenciais.;"• Ambientes e hostnames de homologação e produção configurados.
+• Produto de API da nova mesa FIDC criado com as duas APIs.
+• App e credenciais do parceiro criados em homologação.
+• Truststore do mTLS de entrada configurado com o certificado do parceiro."
+TSK-04;FT-02;Task;Provisionar certificados e conectividade de saída para o callback;O callback chama a API do parceiro com mTLS. O parceiro pode exigir IP de origem fixo para liberar o acesso.;"• Certificado cliente emitido para homologação e produção e guardado no Secret Manager.
+• IP de saída fixo configurado e informado ao parceiro, se exigido.
+• Rota de saída até a API do parceiro liberada e testada em homologação.
+• Cadeia de certificados do servidor do parceiro configurada como confiável."
+TSK-05;FT-01 + FT-02;Task;Liberar a conectividade dos serviços com a PDEC;O serviço de simulação e o orquestrador chamam as políticas de crédito na PDEC (GCP / Kubernetes).;"• Rotas e regras de firewall entre os serviços e a PDEC liberadas em homologação e produção.
+• Credenciais de acesso à PDEC emitidas por serviço.
+• Chamada de teste à PDEC executada com sucesso a partir de cada ambiente."
+TSK-06;FT-02;Task;Provisionar a fila de execução assíncrona;Infraestrutura do mecanismo decidido no SPK-04. Se a decisão for outbox no MySQL, esta task se limita à configuração do processamento.;"• Fila ou tópico e fila de falhas criados em homologação e produção.
+• Permissões de publicação e consumo por service account.
+• Retenção e política de reentrega configuradas conforme o SPK-04."
+TSK-07;FT-01 + FT-02;Task;Provisionar a observabilidade: logs, métricas, dashboards e alertas;Sem API de status, o time precisa enxergar sozinho onde está cada análise e cada callback.;"• Logs estruturados centralizados e pesquisáveis por idSimulacao e protocolo.
+• Dashboard com volume, latência e erros de simulação, análise, PDEC e callback.
+• Alertas para falha da PDEC, fila acumulando e callbacks esgotados, com destino de plantão definido."
+US-01;FT-01 + FT-02;Story;Criar o schema da base no MySQL;Implementa o modelo de dados aprovado no SPK-03 com migrations versionadas, aplicadas pelo pipeline.;"• Migrations criam tabelas, índices e restrições do modelo aprovado.
+• Migrations aplicadas pelo pipeline em homologação e produção, com rollback testado.
+• Restrições de unicidade garantem a idempotência definida no contrato."
+US-02;FT-01;Story;Desenvolver a política de crédito de simulação na PDEC;Implementa na PDEC as regras de simulação da REF, especificadas no SPK-02.;"• Regras da REF implementadas e versionadas na PDEC.
+• Todos os cenários da massa de teste retornam o resultado esperado.
+• Entrada e saída da política documentadas para o serviço de simulação.
+• Política publicada em homologação, com aprovação do negócio para produção."
+US-03;FT-02;Story;Desenvolver a política de crédito de análise automática na PDEC;Implementa na PDEC as regras de análise automática da REF, especificadas no SPK-02.;"• Regras da REF implementadas e versionadas na PDEC.
+• Todos os cenários da massa de teste retornam o resultado esperado.
+• Casos sem decisão automática retornam o tratamento definido na REF, sem derivação para análise manual.
+• Política publicada em homologação, com aprovação do negócio para produção."
+US-04;FT-01;Story;Desenvolver o serviço da API de simulação;Serviço no GCP que recebe a simulação, executa a política na PDEC, salva dados e resultado e responde na mesma chamada.;"• Valida o payload conforme o contrato e retorna erros padronizados.
+• Executa a política de simulação e salva dados e resultado na base antes de responder.
+• Retorna o resultado e o idSimulacao na mesma chamada.
+• Respeita o timeout acordado; com a PDEC indisponível, retorna o erro do contrato sem gravar simulação inconsistente.
+• A simulação fica associada ao parceiro que a criou."
+US-05;FT-01;Story;Publicar a API de simulação no Apigee;Proxy que expõe o serviço de simulação ao parceiro com mTLS e controles de consumo.;"• Proxy publicado com mTLS de entrada e validação da credencial do parceiro.
+• Identidade do parceiro repassada ao serviço pelo proxy, sem depender de dado enviado pelo cliente.
+• Limites de taxa e quota configurados conforme o volume acordado.
+• Requisições sem certificado válido ou de app não autorizado são rejeitadas.
+• Especificação OpenAPI publicada para o parceiro."
+US-06;FT-02;Story;Publicar a API de análise de crédito no Apigee;Proxy que expõe o orquestrador ao parceiro com mTLS e controles de consumo.;"• Proxy publicado com mTLS de entrada e validação da credencial do parceiro.
+• Identidade do parceiro repassada ao orquestrador pelo proxy.
+• Limites de taxa e quota configurados conforme o volume acordado.
+• Requisições sem certificado válido ou de app não autorizado são rejeitadas.
+• Especificação OpenAPI publicada para o parceiro."
+US-07;FT-02;Story;Orquestrador: receber a análise, vincular à simulação e devolver o protocolo;Entrada da esteira de análise. É aqui que a análise de crédito passa a ficar correlacionada à simulação.;"• Valida o payload e o idSimulacao: simulação inexistente, expirada, de outro parceiro ou incompatível é recusada com o erro do contrato.
+• Persiste a solicitação com o vínculo à simulação antes de responder.
+• Responde com o protocolo de aceite sem aguardar a decisão de crédito.
+• A mesma chave de idempotência devolve o mesmo protocolo, sem criar nova análise.
+• Solicitação encaminhada para processamento assíncrono."
+US-08;FT-02;Story;Orquestrador: executar a análise automática e registrar o resultado;Processamento assíncrono da análise: controla os estados internos, chama a política de análise na PDEC e grava o resultado.;"• Estados internos controlados (ex.: recebida, em análise, concluída, sem decisão, erro), com transições auditáveis.
+• Chama a política de análise na PDEC com os dados da solicitação e da simulação vinculada.
+• Resultado gravado com o vínculo ao protocolo e à simulação.
+• Falha temporária da PDEC gera retentativa; esgotadas as tentativas, a análise fica em erro para reprocessamento, sem perder a solicitação.
+• Processamento duplicado ou tardio não sobrescreve um resultado final."
+US-09;FT-02;Story;Enviar o resultado da análise ao parceiro por callback;Sem API de status, o callback é o único meio de o parceiro receber o resultado. É uma chamada síncrona, com mTLS, à API do parceiro, que confirma o recebimento.;"• Ao concluir a análise, chama a API do parceiro com mTLS e o payload do contrato.
+• O payload identifica o protocolo e o idSimulacao.
+• O callback só é marcado como entregue após a confirmação de recebimento do parceiro.
+• Cada tentativa é registrada com data, resposta e tempo."
+US-10;FT-02;Story;Retentar e reprocessar callbacks com falha;Falhas na API do parceiro não podem fazer o resultado se perder.;"• Falhas temporárias são retentadas conforme a política do contrato (intervalo e limite).
+• Esgotadas as tentativas, o callback fica pendente e gera alerta.
+• A operação consegue reenviar o callback de uma análise sem reprocessar a decisão.
+• O reenvio mantém o mesmo protocolo e idSimulacao."
+US-11;FT-01 + FT-02;Story;Registrar a trilha de auditoria e o rastreio ponta a ponta;A correlação precisa ser verificável internamente: simulação → análise → resultado → callback.;"• Identificador de correlação propagado do Apigee aos serviços, à PDEC e ao callback.
+• Auditoria registra a simulação, o aceite, as transições, a decisão e as entregas do callback, com data e origem.
+• A jornada completa pode ser consultada internamente pelo idSimulacao ou pelo protocolo.
+• Logs não expõem dados pessoais sem máscara."
+TSK-08;FT-01 + FT-02;Task;Executar testes de carga e resiliência;Validar o volume acordado e o comportamento em falha antes da homologação com o parceiro.;"• A simulação atende ao SLA no volume de pico acordado (SPK-06).
+• A análise processa o volume esperado sem acúmulo na fila.
+• Cenários de falha validados: PDEC indisponível, parceiro fora do ar no callback e reinício dos serviços.
+• Resultados registrados; gargalos corrigidos ou aceitos pelo negócio."
+TSK-09;FT-01 + FT-02;Task;Homologar o fluxo ponta a ponta com o parceiro;Janela proposta de homologação: 04 a 08/01/2027.;"• Fluxo simulação → análise → callback executado com o parceiro, com mTLS nas duas direções.
+• Cenários de correlação inválida, reenvio idempotente e caso sem decisão automática validados.
+• Massa de cenários da REF validada com o negócio.
+• Aceite do negócio e do parceiro registrado."
+TSK-10;FT-01 + FT-02;Task;Preparar a implantação em produção;Data-alvo da Entrega 1: 11/01/2027.;"• Runbook de operação e de reprocessamento de callbacks publicado.
+• Plano de implantação e rollback aprovado, com janela definida.
+• Credenciais e certificados de produção do parceiro configurados e validados por smoke test.
+• Monitoramento e alertas ativos em produção, com responsáveis de plantão definidos."
